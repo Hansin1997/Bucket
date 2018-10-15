@@ -1,0 +1,18 @@
+{
+  "roots": [
+    "D:/Documents/"
+  ],
+  "wrappers": {
+    "http": {
+      "enable": true,
+      "host": "127.0.0.1",
+      "port": 8866
+    },
+    "zookeeper": {
+      "enable": true,
+      "host": "127.0.0.1",
+      "port": 2181,
+      "session": 10000
+    }
+  }
+}

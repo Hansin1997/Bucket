@@ -1,2 +1,1 @@
-# Bucket
-A distributed network framework base on Netty and ZooKeeper
+# BucketA distributed network framework base on [Netty](https://netty.io/) and [ZooKeeper](http://zookeeper.apache.org/).

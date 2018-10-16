@@ -4,61 +4,61 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 服务配置类
+ * Service Configure
  */
 public class ServiceConfig extends Config {
 
     /**
-     * 服务名称
+     * service name
      */
     public String name;
 
     /**
-     * 服务类型
+     * service type
      */
     public ServiceType type;
 
     /**
-     * 是否自启动
+     * is auto run
      */
     public Boolean autorun;
 
     /**
-     * 服务所在目录（由容器设置）
+     * the root path of service
      */
     public String root;
 
     /**
-     * 服务路径
+     * service target path
      */
     public String path;
 
     /**
-     * 服务绑定地址
+     * bind host
      */
     public String host;
 
     /**
-     * 服务绑定端口
+     * bind port
      */
     public Integer port;
 
     /**
-     * 额外参数
+     * extend params
      */
     public Map<String, Object> param;
 
     /**
-     * 服务具有的方法
+     * methods
      */
     public Map<String, ServiceMethodBody> methods;
 
     /**
-     * 设置参数
+     * Add param
      *
-     * @param key   参数名
-     * @param value 参数值
-     * @return 配置对象
+     * @param key
+     * @param value
+     * @return
      */
     public ServiceConfig setParam(String key, Object value) {
         if (param == null)
@@ -68,11 +68,11 @@ public class ServiceConfig extends Config {
     }
 
     /**
-     * 获取参数
+     * Get param
      *
-     * @param key 参数名
-     * @param <T> 参数类型
-     * @return 参数
+     * @param key
+     * @param <T>
+     * @return
      */
     public <T> T getParam(String key) {
         Object obj;
@@ -81,6 +81,13 @@ public class ServiceConfig extends Config {
         return (T) obj;
     }
 
+    /**
+     * Add method
+     *
+     * @param name       methodName
+     * @param methodBody methodBody
+     * @return
+     */
     public ServiceConfig setMethod(String name, ServiceMethodBody methodBody) {
         if (methods == null)
             methods = new HashMap<>();
@@ -89,22 +96,22 @@ public class ServiceConfig extends Config {
     }
 
     /**
-     * 服务方法体
+     * Method Body
      */
     public static class ServiceMethodBody {
 
         /**
-         * 请求方法类型
+         * request type
          */
         public MethodType method;
 
         /**
-         * 请求路径
+         * request path
          */
         public String path;
 
         /**
-         * 携带参数
+         * extend params
          */
         public Map<String, ServiceMethodParameterBody> param;
 
@@ -118,11 +125,11 @@ public class ServiceConfig extends Config {
         }
 
         /**
-         * 设置参数
+         * Add param
          *
-         * @param key   参数名
-         * @param value 参数值
-         * @return 方法体
+         * @param key
+         * @param value
+         * @return
          */
         public ServiceMethodBody setParam(String key, ServiceMethodParameterBody value) {
             if (param == null)
@@ -132,22 +139,22 @@ public class ServiceConfig extends Config {
         }
 
         /**
-         * 方法参数结构体
+         * Method Parameter Body
          */
         public static class ServiceMethodParameterBody {
 
             /**
-             * 参数类型
+             * parameter type
              */
             public String type;
 
             /**
-             * 参数描述
+             * parameter description
              */
             public String description;
 
             /**
-             * 是否数组
+             * is array
              */
             public Boolean array;
 
@@ -164,7 +171,7 @@ public class ServiceConfig extends Config {
         }
 
         /**
-         * 方法类型枚举
+         * Method Types
          */
         public enum MethodType {
             GET,
@@ -180,35 +187,35 @@ public class ServiceConfig extends Config {
     }
 
     /**
-     * 服务类型
+     * Service Types
      */
     public enum ServiceType {
         /**
-         * 简易Http服务
+         * SimpleHttpService
          */
         HTTP,
         /**
-         * Jar包
+         * Jar
          */
         JAVA_JAR,
         /**
-         * Java编译文件
+         * Java Class File
          */
         JAVA_CLASS,
         /**
-         * Java源文件
+         * Java Source File
          */
         JAVA_FILE,
         /**
-         * PHP文件
+         * PHP Script
          */
         PHP,
         /**
-         * Python文件
+         * Python Script
          */
         PYTHON_FILE,
         /**
-         * 系统可执行文件
+         * System Executable File
          */
         EXECUTABLE
     }

@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.HttpRequest;
 
 /**
- * Http业务接口
+ * Http Handler Interface
  */
 public interface HttpHandler {
     void init(HttpService httpService);

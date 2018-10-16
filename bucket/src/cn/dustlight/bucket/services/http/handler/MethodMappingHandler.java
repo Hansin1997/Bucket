@@ -1,7 +1,6 @@
 package cn.dustlight.bucket.services.http.handler;
 
 import cn.dustlight.bucket.core.config.ServiceConfig;
-import cn.dustlight.bucket.core.exception.ServiceException;
 import cn.dustlight.bucket.other.HttpChunkFileEchoer;
 import cn.dustlight.bucket.other.Utils;
 import cn.dustlight.bucket.services.http.HttpService;
@@ -22,6 +21,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A method mapping handler,mapping simple:
+ *  path="/index" -> methodName="_index"
+ */
 public class MethodMappingHandler implements HttpHandler {
 
     private Class<?> aClass;
@@ -60,10 +63,13 @@ public class MethodMappingHandler implements HttpHandler {
             Method method = aClass.getMethod(path, Context.class);
             method.setAccessible(true);
             Object result = method.invoke(this, context);
-
-            if (result instanceof ChannelFuture && !HttpUtil.isKeepAlive(q))
-                ((ChannelFuture) result).addListener(ChannelFutureListener.CLOSE);
-
+            if (result != null) {
+                if (result instanceof ChannelFuture && !HttpUtil.isKeepAlive(q) && !context.doNotClose)
+                    ((ChannelFuture) result).addListener(ChannelFutureListener.CLOSE);
+            }else{
+                if(!context.doNotClose)
+                    ((ChannelFuture) result).addListener(ChannelFutureListener.CLOSE);
+            }
         } catch (NoSuchMethodException e) {
             MethodNotFound(context,e);
         } catch (Exception e) {
@@ -93,6 +99,8 @@ public class MethodMappingHandler implements HttpHandler {
         public URI uri;
         public Map<String, String> params;
 
+        private boolean doNotClose;
+
         public ChannelFuture writeAndClose(Object object) {
             return ctx.writeAndFlush(object).addListener(ChannelFutureListener.CLOSE);
         }
@@ -107,6 +115,10 @@ public class MethodMappingHandler implements HttpHandler {
 
         public ChannelFuture writeFile(File file) throws IOException {
             return HttpChunkFileEchoer.echo(ctx,file);
+        }
+
+        public void DoNotClose(boolean doNotClose) {
+            this.doNotClose = doNotClose;
         }
     }
 

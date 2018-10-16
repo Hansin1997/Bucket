@@ -3,17 +3,17 @@ package cn.dustlight.bucket.core.exception;
 import cn.dustlight.bucket.other.Utils;
 
 /**
- * 服务异常类
+ * Service Exception
  */
 public class ServiceException extends RuntimeException {
 
     /**
-     * 错误码
+     * Error Code
      */
     public int code;
 
     /**
-     * 错误消息
+     * Error Message
      */
     public String msg;
 
@@ -28,9 +28,9 @@ public class ServiceException extends RuntimeException {
     }
 
     /**
-     * 转换至JSON字符串
+     * To JSON String
      *
-     * @return JSON字符串
+     * @return JSON String
      */
     public String toJSON() {
         return Utils.toJSON(this);

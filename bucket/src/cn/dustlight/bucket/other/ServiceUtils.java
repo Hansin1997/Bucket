@@ -11,11 +11,9 @@ public class ServiceUtils {
         switch (config.type) {
             case HTTP:
                 service = new SimpleHttpService();
-                service.setConfig(config);
+                service.initialize(config);
                 break;
         }
-
-
         return service;
     }
 }

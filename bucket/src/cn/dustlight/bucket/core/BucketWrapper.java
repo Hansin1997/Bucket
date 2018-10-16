@@ -2,16 +2,23 @@ package cn.dustlight.bucket.core;
 
 import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.ServiceConfig;
+import cn.dustlight.bucket.other.CommonFuture;
 
 import java.util.Map;
 
 /**
- * Bucket包装器
+ * Bucket Wrapper
  */
 public class BucketWrapper implements Bucket {
 
+    /**
+     * Packaged Bucket
+     */
     protected Bucket bucket;
 
+    /**
+     * Is enable this wrapper
+     */
     public Boolean enable;
 
     public BucketWrapper(Bucket bucket) {
@@ -19,28 +26,28 @@ public class BucketWrapper implements Bucket {
     }
 
     @Override
-    public void initialize(BucketConfig config) {
-        this.bucket.initialize(config);
+    public <T extends Bucket> CommonFuture<T> initialize(BucketConfig config) {
+        return this.bucket.initialize(config);
     }
 
     @Override
-    public void destory() {
-        this.bucket.destory();
+    public <T extends Bucket> CommonFuture<T> destroy() {
+        return bucket.destroy();
     }
 
     @Override
-    public <T extends Service> T startService(String name, boolean reload) {
+    public <T extends Service> CommonFuture<T> startService(String name, boolean reload) {
         return this.bucket.startService(name, reload);
     }
 
     @Override
-    public <T extends Service> T stopService(String name) {
+    public <T extends Service> CommonFuture<T> stopService(String name) {
         return this.bucket.stopService(name);
     }
 
     @Override
-    public <T> T callService(String name, ServiceCalling calling) {
-        return this.bucket.callService(name,calling);
+    public <T> CommonFuture<T> callService(String name, ServiceCalling calling) {
+        return this.bucket.callService(name, calling);
     }
 
     @Override

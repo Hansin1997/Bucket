@@ -3,7 +3,8 @@ package cn.dustlight.bucket.services.http;
 import cn.dustlight.bucket.services.http.handler.SimpleHttpHandler;
 
 /**
- * 简单Http服务
+ * Simple Http Service
+ * with SimpleHttpHandler
  */
 public class SimpleHttpService extends HttpService {
     public SimpleHttpService() {

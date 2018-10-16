@@ -2,67 +2,67 @@ package cn.dustlight.bucket.core;
 
 import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.core.exception.ServiceException;
+import cn.dustlight.bucket.other.CommonFuture;
+
 
 /**
- * 服务抽象类
+ * The abstract Service
  */
 public abstract class Service {
 
     /**
-     * 服务配置
+     * configure
      */
     private ServiceConfig config;
 
     /**
-     * 是否正在运行
+     * Is service running
      */
     private boolean isRunning;
 
     /**
-     * 初始化
+     * Initialize service
      *
-     * @param config 服务配置
-     * @throws ServiceException 服务异常
+     * @param config configure of service
+     * @throws ServiceException
      */
-    public synchronized void initialize(ServiceConfig config) throws ServiceException {
+    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) throws ServiceException {
         this.config = config;
         if (this.isRunning)
-            stop();
-        doInit(this.config);
+            return (CommonFuture<T>) stop().start();
+        else
+            return (CommonFuture<T>) doInit(this.config).start();
+
     }
 
     /**
-     * 开启服务
+     * Lunch the service
      *
-     * @throws ServiceException 服务异常
+     * @throws ServiceException
      */
-    public synchronized void start() throws ServiceException {
+    public synchronized <T extends Service> CommonFuture<T> start() throws ServiceException {
         if (isRunning)
-            return;
-        doStart(config);
+            return null;
+        CommonFuture<T> result = (CommonFuture<T>) doStart(config).start();
         this.isRunning = true;
+        return result;
     }
 
     /**
-     * 停止服务
+     * Stop the service
      *
-     * @throws ServiceException 服务异常
+     * @throws ServiceException
      */
-    public synchronized void stop() throws ServiceException {
-//        try{
-//            doStop();
-//        }catch (ServiceException e){
-//            this.isRunning = false;
-//            throw e;
-//        }
+    public synchronized <T extends Service> CommonFuture<T> stop() throws ServiceException {
         if (!this.isRunning)
-            return;
-        doStop();
+            return null;
+        CommonFuture<T> result = (CommonFuture<T>) doStop().start();
         this.isRunning = false;
+        return result;
     }
 
     /**
-     * 服务是否正在运行
+     * Is service running
      *
      * @return
      */
@@ -71,45 +71,45 @@ public abstract class Service {
     }
 
     /**
-     * 执行初始化
+     * Do initialize
      *
-     * @param config 服务配置
-     * @throws ServiceException 服务异常
+     * @param config configure of service
+     * @throws ServiceException
      */
-    protected abstract void doInit(ServiceConfig config) throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doInit(ServiceConfig config) throws ServiceException;
 
     /**
-     * 执行启动
+     * Do lunch
      *
-     * @throws ServiceException 服务异常
+     * @throws ServiceException
      */
-    protected abstract void doStart(ServiceConfig config) throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doStart(ServiceConfig config) throws ServiceException;
 
     /**
-     * 执行停止
+     * Do stop
      *
-     * @throws ServiceException 服务异常
+     * @throws ServiceException
      */
-    protected abstract void doStop() throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doStop() throws ServiceException;
 
     /**
-     * 重新设置服务配置
+     * Reset the configure and service
      *
-     * @param config 服务配置
-     * @throws ServiceException 服务异常
+     * @param config configure of service
+     * @throws ServiceException
      */
     public abstract void resetConfig(ServiceConfig config) throws ServiceException;
 
     /**
-     * 调用服务方法
+     * Call the method in this service
      *
-     * @param calling 调用对象
-     * @return 调用结果
+     * @param calling Calling Object
+     * @return
      */
-    public abstract Object call(ServiceCalling calling);
+    public abstract <T> CommonFuture<T> call(ServiceCalling calling);
 
     /**
-     * 获取服务配置
+     * Get service configure
      *
      * @return
      */
@@ -118,7 +118,7 @@ public abstract class Service {
     }
 
     /**
-     * 设置服务配置
+     * Set service configure.(Possible reset service)
      *
      * @param config
      * @throws ServiceException

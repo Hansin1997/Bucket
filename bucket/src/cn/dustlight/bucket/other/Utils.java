@@ -10,15 +10,15 @@ import java.net.URLEncoder;
 import java.util.*;
 
 /**
- * 通用工具类
+ * Common Utils
  */
 public class Utils {
 
     /**
-     * 转换对象至JSON字符串
+     * Transform object to JSON
      *
-     * @param object 对象
-     * @return JSON字符串
+     * @param object Object
+     * @return JSON
      */
     public static String toJSON(Object object) {
         return new Gson().toJson(object);

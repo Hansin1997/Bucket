@@ -9,8 +9,10 @@ import io.netty.handler.stream.ChunkedFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.URI;
 
+/**
+ * Easy to send file with netty
+ */
 public class HttpChunkFileEchoer {
 
     private ChannelHandlerContext ctx;

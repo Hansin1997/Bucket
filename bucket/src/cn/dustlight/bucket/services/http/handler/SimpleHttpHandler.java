@@ -14,15 +14,24 @@ import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+/**
+ * A simple http website handler
+ */
 public class SimpleHttpHandler implements HttpHandler {
 
     /**
-     * 网页根目录
+     * the root path of website
      */
     private String root;
 
+    /**
+     * default files
+     */
     private List<String> defaultPage;
 
+    /**
+     * should list files(when the request path is a directory)
+     */
     private Boolean listFile;
 
     @Override

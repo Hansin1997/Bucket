@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
- * JSON配置类
+ * JSON Config
  */
 public class Config {
 
     /**
-     * 保存
+     * Save this object to file with JSON format.
      *
      * @param path
      * @throws IOException
@@ -23,11 +23,11 @@ public class Config {
 
 
     /**
-     * 加载
+     * Load a JSON format file and cast to Object
      *
-     * @param fileName 文件名
-     * @param tClass   实例类名
-     * @param <T>      子类
+     * @param fileName jsonFileName
+     * @param tClass   targetClass
+     * @param <T>
      * @return
      * @throws IOException
      */
@@ -36,11 +36,11 @@ public class Config {
     }
 
     /**
-     * 加载
+     * Load a JSON format file and cast to Object
      *
-     * @param file 文件
-     * @param tClass   实例类名
-     * @param <T>      子类
+     * @param file   file
+     * @param tClass targetClass
+     * @param <T>
      * @return
      * @throws IOException
      */
@@ -49,11 +49,11 @@ public class Config {
     }
 
     /**
-     * 加载
+     * Load a JSON format char string and cast to Object
      *
-     * @param json json
-     * @param tClass   实例类名
-     * @param <T>      子类
+     * @param json   json
+     * @param tClass targetClass
+     * @param <T>
      * @return
      * @throws IOException
      */

@@ -1,13 +1,11 @@
 package cn.dustlight.bucket.wrappers;
 
-import cn.dustlight.bucket.core.Bucket;
-import cn.dustlight.bucket.core.BucketWrapper;
-import cn.dustlight.bucket.core.Service;
-import cn.dustlight.bucket.core.ServiceCalling;
+import cn.dustlight.bucket.core.*;
 import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.Config;
 import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.core.exception.ServiceException;
+import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.other.Utils;
 import cn.dustlight.bucket.other.ZooKeeperUtils;
 import com.google.gson.JsonObject;
@@ -22,7 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Zookeeper包装类
+ * Zookeeper Wrapper
+ * this wrapper ..
  */
 public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
@@ -43,32 +42,36 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
     }
 
     @Override
-    public void initialize(BucketConfig config) {
-        super.initialize(config);
-        lastRpc = new ArrayList<>();
-        try {
-            zoo = new ZooKeeper(ZooKeeperWrapper.this.host + ":" + ZooKeeperWrapper.this.port, ZooKeeperWrapper.this.session, new Watcher() {
-                @Override
-                public void process(WatchedEvent watchedEvent) {
-                    try {
-                        init();
-                    } catch (Exception e) {
-                        onException(e);
-                    }
+    public CommonFuture<Bucket> initialize(BucketConfig config) {
+        return super.initialize(config).addListener(new CommonFuture.CommonListener<Bucket>() {
+            @Override
+            public void onDone(Bucket result) {
+                lastRpc = new ArrayList<>();
+                try {
+                    zoo = new ZooKeeper(ZooKeeperWrapper.this.host + ":" + ZooKeeperWrapper.this.port, ZooKeeperWrapper.this.session, new Watcher() {
+                        @Override
+                        public void process(WatchedEvent watchedEvent) {
+                            try {
+                                init();
+                            } catch (Exception e) {
+                                onException(e);
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    onException(e);
                 }
-            });
-        } catch (IOException e) {
-            onException(e);
-        }
+            }
+        });
+
     }
 
     @Override
-    public RemoteService startService(String name, boolean reload) {
+    public CommonFuture<RemoteService> startService(String name, boolean reload) {
         RemoteService remoteService = new RemoteService(name);
         if(reload)
             remoteService.setReload(reload);
-        remoteService.start();
-        return remoteService;
+        return remoteService.start();
     }
 
     @Override
@@ -77,10 +80,9 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
     }
 
     @Override
-    public RemoteService stopService(String name) {
+    public CommonFuture<RemoteService> stopService(String name) {
         RemoteService remoteService = new RemoteService(name);
-        remoteService.stop();
-        return remoteService;
+        return remoteService.stop();
     }
 
     @Override
@@ -111,16 +113,19 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
     }
 
     @Override
-    public void destory() {
-        super.destory();
-        try {
-            zoo.close();
-        } catch (InterruptedException e) {
-            onException(e);
-        }
+    public CommonFuture<Bucket> destroy() {
+        return super.destroy().addListener(result -> {
+            try {
+                zoo.close();
+            } catch (InterruptedException e) {
+                onException(e);
+            }
+        });
+
     }
 
     protected void onException(Exception e) {
+
         e.printStackTrace();
     }
 
@@ -165,23 +170,44 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                     List<String> list = zoo.getChildren(rpcPath, this);
                     byte[] data;
                     for (String l : list) {
+                        if(lastRpc.contains(l))
+                            continue;
                         try {
                             String p = rpcPath + "/" + l;
                             data = zoo.getData(p, false, null);
+                            if(data == null)
+                                continue;
                             RpcBody rpcBody = Utils.loadFromJSON(new String(data), RpcBody.class);
+                            if(rpcBody == null || rpcBody.type == null)
+                                continue;
                             switch (rpcBody.type) {
                                 case START_SERVICE:
                                     String n = rpcBody.getParam("name");
                                     Boolean reload = rpcBody.getParam("reload");
                                     reload = (reload != null)?reload:false;
-                                    Service service = this.bucket.startService(n,reload);
-                                    if(service != null){
-                                        zoo.setData(p,Utils.toJSON(service.getConfig()).getBytes(),-1);
-                                    }
+
+                                    CommonFuture<Service> future = this.bucket.startService(n,reload);
+
+                                    future.addListener(new CommonFuture.CommonListener<Service>() {
+                                        @Override
+                                        public void onDone(Service service) {
+                                            if(service != null){
+                                                try {
+                                                    ZooKeeperWrapper.this.zoo.setData(p,Utils.toJSON(service.getConfig()).getBytes(),-1);
+                                                    ZooKeeperWrapper.this.createNode(servicePath + "/" + n +"_"+instanceName,new byte[0],ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.EPHEMERAL);
+
+                                                } catch (Exception e){
+                                                    onException(e);
+                                                }
+
+                                            }
+                                        }
+                                    });
+
                                     break;
 
                             }
-                        } catch (ServiceException e){
+                        } catch (ServiceException | KeeperException.NoNodeException e){
 
                         } catch (Exception e) {
                             onException(e);
@@ -198,32 +224,20 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         }
     }
 
-    protected void RPC(RpcBody rpcBody, RpcCallback callback) {
-        RpcResponse response = new RpcResponse();
-        try {
-            String ph = createNode(rpcPath + "/" + instanceName + "_", rpcBody.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-            zoo.getData(ph, new Watcher() {
-                @Override
-                public void process(WatchedEvent watchedEvent) {
-
-                    try {
-                        byte[] data = zoo.getData(ph, false, null);
-                        zoo.delete(ph, -1);
-                        response.data = Utils.loadFromJSON(new String(data), JsonObject.class);
-                    } catch (Exception e) {
-                        response.throwable = e;
-                    }
-                    callback.onDone(response);
-                }
-            }, null);
-        } catch (Exception e) {
-            response.throwable = e;
-            callback.onDone(response);
-        }
-
+    /**
+     * 远程过程调用
+     *
+     * @param rpcBody 调用体
+     * @return
+     */
+    protected CommonFuture<RpcResponse> RPC(RpcBody rpcBody) {
+        RpcFuture future = new RpcFuture(rpcBody);
+        return future.start();
     }
 
-
+    /**
+     * 远程服务配置
+     */
     public class RemoteServiceConfig extends ServiceConfig {
 
         public String s_name;
@@ -257,11 +271,10 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
     }
 
-
     /**
      * 远程服务
      */
-    public class RemoteService extends Service implements Watcher {
+    public class RemoteService extends Service {
 
         public String s_name;
         public RemoteServiceConfig config;
@@ -274,29 +287,47 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         }
 
         @Override
-        protected void doInit(ServiceConfig config) throws ServiceException {
-
+        protected CommonFuture<RemoteService> doInit(ServiceConfig config) throws ServiceException {
+            return new CommonFuture<RemoteService>() {
+                @Override
+                public void run() {
+                    done(RemoteService.this);
+                }
+            };
         }
 
         @Override
-        protected void doStart(ServiceConfig config) throws ServiceException {
-
+        protected CommonFuture<RemoteService> doStart(ServiceConfig config) throws ServiceException {
+            if(this.config.getConfigs().size() <= 0)
+                throw new ServiceException(100, "Service doesn't exist.");
             RpcBody body = new RpcBody()
                     .setParams("name", s_name)
                     .setParams("reload",reload)
                     .setType(RpcBody.RpcType.START_SERVICE);
-
-            ZooKeeperWrapper.this.RPC(body, new RpcCallback() {
+            return new CommonFuture<RemoteService>() {
                 @Override
-                public void onDone(RpcResponse rpcResponse) {
-                    System.out.println(rpcResponse);
+                public void run() {
+                    ZooKeeperWrapper.this.RPC(body).addListener(new CommonFuture.CommonListener<RpcResponse>() {
+                        @Override
+                        public void onDone(RpcResponse result) {
+                            if(result.throwable != null)
+                                result.throwable.printStackTrace();
+                            if(result.data != null){
+                                RemoteServiceConfig config1 = Utils.loadFromJSON(Utils.toJSON(result.data),RemoteServiceConfig.class);
+                                RemoteService remoteService = new RemoteService(s_name);
+                                done(remoteService);
+                            }else{
+                                done(null);
+                            }
+                        }
+                    });
                 }
-            });
+            };
         }
 
         @Override
-        protected void doStop() throws ServiceException {
-
+        protected CommonFuture<RemoteService> doStop() throws ServiceException {
+            return null;
         }
 
         @Override
@@ -305,13 +336,8 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         }
 
         @Override
-        public Object call(ServiceCalling calling) {
+        public <T> CommonFuture<T> call(ServiceCalling calling) {
             return null;
-        }
-
-        @Override
-        public void process(WatchedEvent watchedEvent) {
-
         }
 
         public void setReload(Boolean reload) {
@@ -325,6 +351,48 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         }
     }
 
+    protected class RpcFuture extends CommonFuture<RpcResponse> {
+
+        private RpcBody rpcBody;
+
+        public RpcFuture(RpcBody body) {
+            this.rpcBody = body;
+        }
+
+        @Override
+        public void run() {
+            RpcResponse response = new RpcResponse();
+            String ph = null;
+            try {
+                ph = createNode(rpcPath + "/" + instanceName + "_", rpcBody.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
+                zoo.getData(ph, new Watcher() {
+                    @Override
+                    public void process(WatchedEvent watchedEvent) {
+
+                        try {
+                            byte[] data = zoo.getData(watchedEvent.getPath(), false, null);
+                            zoo.delete(watchedEvent.getPath(), -1);
+                            response.data = Utils.loadFromJSON(new String(data), JsonObject.class);
+                        } catch (Exception e) {
+                            response.throwable = e;
+                        }
+                        done(response);
+                    }
+                }, null);
+            } catch (Exception e) {
+                response.throwable = e;
+                if(ph != null) {
+                    try {
+                        zoo.delete(ph,-1);
+                    } catch (Exception e1){
+                        onException(e1);
+                    }
+                }
+                done(response);
+            }
+        }
+    }
+
     public static class RpcResponse {
         public JsonObject data;
         public Throwable throwable;
@@ -333,10 +401,6 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         public String toString() {
             return Utils.toJSON(this);
         }
-    }
-
-    public interface RpcCallback {
-        void onDone(RpcResponse rpcResponse);
     }
 
     public static class RpcBody {

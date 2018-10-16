@@ -4,6 +4,7 @@ import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.core.Service;
 import cn.dustlight.bucket.core.ServiceCalling;
 import cn.dustlight.bucket.core.exception.ServiceException;
+import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.services.http.handler.HttpHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -16,19 +17,33 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
- * Http服务
+ * Http Service base on netty
+ * you can set your own handler to dispose your business
  */
 public class HttpService extends Service {
 
+    /**
+     * Netty Boss Group
+     */
     private EventLoopGroup boss;
+
+    /**
+     * Netty Worker Group
+     */
     private EventLoopGroup workers;
+
     private ServerBootstrap bootstrap;
     private ChannelFuture channelFuture;
+
+    /**
+     * Http Handler
+     */
     private HttpHandler handler;
+
     protected final static byte[] ERROR_MSG_HANDLER_NOT_SET = "Handler not set!".getBytes();
 
     @Override
-    protected void doInit(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<HttpService> doInit(ServiceConfig config) throws ServiceException {
         if (this.handler == null)
             this.handler = new HttpHandler() {
                 @Override
@@ -62,6 +77,12 @@ public class HttpService extends Service {
                 });
 
         handler.init(this);
+        return new CommonFuture<HttpService>() {
+            @Override
+            public void run() {
+                done(HttpService.this);
+            }
+        }.start();
     }
 
     @Override
@@ -73,32 +94,44 @@ public class HttpService extends Service {
     }
 
     @Override
-    public Object call(ServiceCalling calling) {
+    public <T> CommonFuture<T> call(ServiceCalling calling) {
         return null;
     }
 
     @Override
-    protected void doStart(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<HttpService> doStart(ServiceConfig config) throws ServiceException {
         try {
             channelFuture = bootstrap.bind(config.host, config.port).sync();
+            return new CommonFuture<HttpService>() {
+                @Override
+                public void run() {
+
+                    done(HttpService.this);
+                }
+            };
         } catch (Exception e) {
             throw new ServiceException(-100, e.toString());
         }
     }
 
     @Override
-    protected void doStop() throws ServiceException {
+    protected CommonFuture<HttpService> doStop() throws ServiceException {
         ServiceException exception = null;
         try {
             channelFuture.channel().close();
         } catch (Exception e) {
-            e.printStackTrace();
             exception = new ServiceException(-101, e.toString());
         }
         boss.shutdownGracefully();
         workers.shutdownGracefully();
         if (exception != null)
             throw exception;
+        return new CommonFuture<HttpService>() {
+            @Override
+            public void run() {
+                done(HttpService.this);
+            }
+        };
     }
 
     public ChannelFuture getChannelFuture() {
@@ -122,7 +155,7 @@ public class HttpService extends Service {
     }
 
     /**
-     * Http业务Netty接口
+     * A Netty Http Handler
      */
     public static class HttpServiceHandler extends ChannelInboundHandlerAdapter {
 

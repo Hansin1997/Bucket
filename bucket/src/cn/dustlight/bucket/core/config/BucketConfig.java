@@ -9,12 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 容器配置
+ * Bucket Configure
  */
 public class BucketConfig extends Config {
 
+    /**
+     * Scanning paths
+     */
     public List<String> roots;
 
+    /**
+     * Bucket Wrappers
+     */
     public Map<String,Map<String,Object>> wrappers;
 
     public <T> T getWrapper(String name) {

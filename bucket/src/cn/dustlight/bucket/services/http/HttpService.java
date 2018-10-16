@@ -16,6 +16,9 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+
 /**
  * Http Service base on netty
  * you can set your own handler to dispose your business
@@ -105,7 +108,12 @@ public class HttpService extends Service {
             return new CommonFuture<HttpService>() {
                 @Override
                 public void run() {
-
+                    try{
+                        InetSocketAddress add = (InetSocketAddress) channelFuture.channel().localAddress();
+                        getConfig().port = add.getPort();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     done(HttpService.this);
                 }
             };

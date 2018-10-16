@@ -15,6 +15,7 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
 
     private List<CommonListener<T>> list;
     private T result;
+    private Exception e;
     private boolean started;
     private boolean done;
 
@@ -49,7 +50,7 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
 
     public CommonFuture<T> addListener(CommonListener<T> listener) {
         if (isDone()) {
-            listener.onDone(result);
+            listener.onDone(result,e);
         } else {
             synchronized (list) {
                 list.add(listener);
@@ -58,11 +59,34 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
         return this;
     }
 
+    protected void done(T result,Exception e) {
+        this.result = result;
+        this.e = e;
+        synchronized (list) {
+            for (CommonListener<T> l : list) {
+                l.onDone(this.result,this.e);
+            }
+            list.clear();
+            done = true;
+        }
+    }
+
+    protected void done(Exception e) {
+        this.e = e;
+        synchronized (list) {
+            for (CommonListener<T> l : list) {
+                l.onDone(this.result,this.e);
+            }
+            list.clear();
+            done = true;
+        }
+    }
+
     protected void done(T result) {
         this.result = result;
         synchronized (list) {
             for (CommonListener<T> l : list) {
-                l.onDone(result);
+                l.onDone(this.result,this.e);
             }
             list.clear();
             done = true;
@@ -78,6 +102,6 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
     }
 
     public static interface CommonListener<T> {
-        void onDone(T result);
+        void onDone(T result,Exception e);
     }
 }

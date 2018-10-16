@@ -96,12 +96,9 @@ public class BucketBase implements Bucket {
             @Override
             public void run() {
                 Service service = workingServices.remove(name);
-                service.stop().addListener(new CommonListener() {
-                    @Override
-                    public void onDone(Object result) {
-                        stoppedServices.put(name, service);
-                        done((T) service);
-                    }
+                service.stop().addListener((result, e) -> {
+                    stoppedServices.put(name, service);
+                    done((T) service,e);
                 });
             }
         }.start();
@@ -130,12 +127,9 @@ public class BucketBase implements Bucket {
                 return startService(name, true);
             }else {
                 CommonFuture<T> result = service.start();
-                result.addListener(new CommonFuture.CommonListener<T>() {
-                    @Override
-                    public void onDone(T result) {
-                        stoppedServices.remove(name);
-                        workingServices.put(name,result);
-                    }
+                result.addListener((rs, e) -> {
+                    stoppedServices.remove(name);
+                    workingServices.put(name,rs);
                 });
                 return result;
             }

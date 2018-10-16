@@ -44,35 +44,27 @@ public class HttpApiWrapper extends BucketWrapper {
 
     @Override
     public CommonFuture<Bucket> initialize(BucketConfig config) {
-        return super.initialize(config).addListener(new CommonFuture.CommonListener<Bucket>() {
-            @Override
-            public void onDone(Bucket result) {
-                httpService = new HttpService();
-                httpService.setHandler(new MappingApiHandler());
-                ServiceConfig serviceConfig = new ServiceConfig();
-                serviceConfig.host = HttpApiWrapper.this.host;
-                serviceConfig.port = HttpApiWrapper.this.port;
-                httpService.setConfig(serviceConfig);
-                httpService.start();
-            }
+        return super.initialize(config).addListener((result, e) -> {
+            httpService = new HttpService();
+            httpService.setHandler(new MappingApiHandler());
+            ServiceConfig serviceConfig = new ServiceConfig();
+            serviceConfig.host = HttpApiWrapper.this.host;
+            serviceConfig.port = HttpApiWrapper.this.port;
+            httpService.setConfig(serviceConfig);
+            httpService.start();
         });
     }
 
     @Override
     public CommonFuture<Bucket> destroy() {
-        return super.destroy().addListener(new CommonFuture.CommonListener<Bucket>() {
-            @Override
-            public void onDone(Bucket result) {
-                httpService.stop();
-            }
-        });
+        return super.destroy().addListener((result, e) -> httpService.stop());
 
     }
 
     /**
      * API Mapping
      */
-    private class MappingApiHandler extends MethodMappingHandler {
+    public class MappingApiHandler extends MethodMappingHandler {
 
         public ChannelFuture _index(Context context) throws IOException, URISyntaxException {
             return context.writeFile(new File(getClass().getResource("HttpApi.html").toURI()));
@@ -83,40 +75,42 @@ public class HttpApiWrapper extends BucketWrapper {
         }
 
         public ChannelFuture _test_index(Context context) {
-            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
-            response.headers().set("Content-Type","text/html;charset=utf-8");
+            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+            response.headers().set("Content-Type", "text/html;charset=utf-8");
             response.content().writeBytes(("" + context.params).getBytes());
-           return context.writeAndClose(response);
+            return context.writeAndClose(response);
         }
 
         public ChannelFuture _lunch(Context context) {
-            try{
-                HttpApiWrapper.this.startService(context.params.get("s"),false)
-                .addListener(new CommonFuture.CommonListener<Service>() {
-                    @Override
-                    public void onDone(Service result) {
-                        try{
-                            Service service = result;
-                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
-                            response.headers().set("Content-Type","application/json;charset=utf-8");
-                            response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
-                            context.writeAndClose(response);
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.INTERNAL_SERVER_ERROR);
-                            response.headers().set("Content-Type","text/plain;charset=utf-8");
-                            response.content().writeBytes((e.toString()).getBytes());
-                            context.writeAndClose(response);
-                        }
+            try {
+                HttpApiWrapper.this
+                        .startService(context.params.get("s"), false)
+                        .addListener((service, e) -> {
+                            try {
+                                if (e != null)
+                                    throw e;
+                                if(service == null || service.getConfig() == null){
+                                    throw new NullPointerException("service or config is null");
+                                }
+                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                                response.headers().set("Content-Type", "application/json;charset=utf-8");
+                                response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
+                                context.writeAndClose(response);
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
+                                response.headers().set("Content-Type", "text/plain;charset=utf-8");
+                                response.content().writeBytes((e2.toString()).getBytes());
+                                context.writeAndClose(response);
+                            }
 
-                    }
-                });
+                        });
 
                 context.DoNotClose(true);
                 return null;
-            }catch (Exception e) {
-                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK);
-                response.headers().set("Content-Type","text/plain;charset=utf-8");
+            } catch (Exception e) {
+                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                response.headers().set("Content-Type", "text/plain;charset=utf-8");
                 response.content().writeBytes(e.toString().getBytes());
                 return context.writeAndClose(response);
             }

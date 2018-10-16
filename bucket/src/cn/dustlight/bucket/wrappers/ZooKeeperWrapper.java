@@ -316,7 +316,6 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                 @Override
                 public void run() {
                     ZooKeeperWrapper.this.RPC(body).addListener((result, e) -> {
-
                         if(result.data != null){
                             RemoteService remoteService = new RemoteService(s_name);
                             done(remoteService,e);

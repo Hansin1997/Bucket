@@ -50,7 +50,7 @@ public class HttpApiWrapper extends BucketWrapper {
             ServiceConfig serviceConfig = new ServiceConfig();
             serviceConfig.host = HttpApiWrapper.this.host;
             serviceConfig.port = HttpApiWrapper.this.port;
-            httpService.setConfig(serviceConfig);
+            httpService.initialize(serviceConfig);
             httpService.start();
         });
     }
@@ -105,7 +105,6 @@ public class HttpApiWrapper extends BucketWrapper {
                             }
 
                         });
-
                 context.DoNotClose(true);
                 return null;
             } catch (Exception e) {

@@ -49,7 +49,8 @@ public class BucketConfig extends Config {
                         if (configFile.exists()) {
                             try {
                                 ServiceConfig sc = ServiceConfig.load(configFile, ServiceConfig.class);
-                                sc.root = child.getAbsolutePath();
+                                if(sc.root == null)
+                                    sc.root = child.getAbsolutePath();
                                 if (sc != null) {
                                     if (result.get(sc.name) != null)
                                         throw new ServiceException(-200, "Load service error,cause s_name conflict: " + sc.name);

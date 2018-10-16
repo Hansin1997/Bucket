@@ -1,0 +1,14 @@
+{
+	"name": "jar",
+	"type":"JAVA_JAR",
+	"autorun": true,
+	"path": "JarSample.jar",
+	"host": "127.0.0.1",
+	"port": 9999,
+	"param": {
+		"class": "cn.dustlight.bucket.sample.JarSample"
+	},
+	"methods": {
+	
+	}
+}

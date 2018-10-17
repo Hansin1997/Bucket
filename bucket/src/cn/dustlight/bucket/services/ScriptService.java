@@ -33,6 +33,7 @@ public class ScriptService extends Service {
                     eng.put("out",out);
                     eng.put("err",err);
                 }
+
                 Reader script = new BufferedReader(new FileReader(config.root + File.separator + config.path));
                 eng.eval(script, eng.getContext());
 

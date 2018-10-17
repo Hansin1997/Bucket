@@ -6,7 +6,6 @@ import cn.dustlight.bucket.core.ServiceCalling;
 import cn.dustlight.bucket.core.exception.ServiceException;
 import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.services.http.handler.HttpHandler;
-import cn.dustlight.bucket.services.http.handler.SimpleHttpHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -18,26 +17,12 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 /**
  * Http Service base on netty
  * you can set your own handler to dispose your business
  */
 public class HttpService extends Service {
-
-//    public static void main(String[] args) {
-//        ServiceConfig config = new ServiceConfig();
-//        config.setParam("list",true);
-//        config.root = "d:/";
-//        config.path = "";
-//        config.host = "127.0.0.1";
-//        config.port = 6666;
-//        HttpService service = new HttpService();
-//        service.setHandler(new SimpleHttpHandler());
-//        service.initialize(config);
-//        service.start();
-//    }
 
     /**
      * Netty Boss Group

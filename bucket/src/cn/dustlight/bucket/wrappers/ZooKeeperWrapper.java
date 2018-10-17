@@ -1,4 +1,4 @@
-package cn.dustlight.bucket.wrappers.zookeeper;
+package cn.dustlight.bucket.wrappers;
 
 import cn.dustlight.bucket.core.*;
 import cn.dustlight.bucket.core.config.BucketConfig;

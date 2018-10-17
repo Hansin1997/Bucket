@@ -2,14 +2,12 @@ package cn.dustlight.bucket.wrappers;
 
 import cn.dustlight.bucket.core.Bucket;
 import cn.dustlight.bucket.core.BucketWrapper;
-import cn.dustlight.bucket.core.Service;
 import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.other.Utils;
 import cn.dustlight.bucket.services.http.HttpService;
 import cn.dustlight.bucket.services.http.handler.MethodMappingHandler;
-import cn.dustlight.bucket.wrappers.zookeeper.ZooKeeperWrapper;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.http.*;
 

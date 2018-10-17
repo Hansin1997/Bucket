@@ -209,13 +209,13 @@ public class ServiceConfig extends Config {
          */
         JAVA_FILE,
         /**
-         * PHP Script
+         * Script for Service
          */
-        PHP,
+        SCRIPT,
         /**
-         * Python Script
+         * Script for Http Service
          */
-        PYTHON_FILE,
+        SCRIPT_HTTP,
         /**
          * System Executable File
          */

@@ -5,10 +5,9 @@ import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.core.exception.ServiceException;
 import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.other.ServiceUtils;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import org.python.util.PythonInterpreter;
+
+import java.util.*;
 
 /**
  * A base implementation of Bucket interface
@@ -39,6 +38,14 @@ public class BucketBase implements Bucket {
         servicesMap = new HashMap<>();
         workingServices = new HashMap<>();
         stoppedServices = new HashMap<>();
+
+        /** init python script engine **/
+        Properties props = new Properties();
+        props.put("python.console.encoding", "UTF-8");
+        props.put("python.security.respectJavaAccessibility", "false");
+        props.put("python.import.site", "false");
+        Properties preprops = System.getProperties();
+        PythonInterpreter.initialize(props, preprops, new String[] {});
     }
 
     @Override

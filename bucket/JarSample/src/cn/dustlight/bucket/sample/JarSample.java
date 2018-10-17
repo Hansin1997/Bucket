@@ -1,5 +1,10 @@
 package cn.dustlight.bucket.sample;
 
+import cn.dustlight.bucket.core.Service;
+import cn.dustlight.bucket.core.ServiceCalling;
+import cn.dustlight.bucket.core.config.ServiceConfig;
+import cn.dustlight.bucket.core.exception.ServiceException;
+import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.services.http.HttpService;
 import cn.dustlight.bucket.services.http.handler.MethodMappingHandler;
 import io.netty.channel.ChannelFuture;
@@ -15,6 +20,11 @@ public class JarSample extends HttpService {
         setHandler(new TestHandler());
     }
 
+    @Override
+    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) throws ServiceException {
+        return super.initialize(config);
+    }
+
     private class TestHandler extends MethodMappingHandler {
 
         public ChannelFuture _index(Context context) {
@@ -24,4 +34,8 @@ public class JarSample extends HttpService {
         }
     }
 
+    @Override
+    public <T> CommonFuture<T> call(ServiceCalling calling) {
+        return super.call(calling);
+    }
 }

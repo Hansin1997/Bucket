@@ -9,6 +9,7 @@ import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.other.Utils;
 import cn.dustlight.bucket.services.http.HttpService;
 import cn.dustlight.bucket.services.http.handler.MethodMappingHandler;
+import cn.dustlight.bucket.wrappers.zookeeper.ZooKeeperWrapper;
 import io.netty.channel.ChannelFuture;
 import io.netty.handler.codec.http.*;
 

@@ -6,7 +6,7 @@ import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.Config;
 import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.wrappers.HttpApiWrapper;
-import cn.dustlight.bucket.wrappers.ZooKeeperWrapper;
+import cn.dustlight.bucket.wrappers.zookeeper.ZooKeeperWrapper;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -13,7 +13,7 @@ public abstract class Service {
     /**
      * configure
      */
-    private ServiceConfig config;
+    protected ServiceConfig config;
 
     /**
      * Is service running

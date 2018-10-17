@@ -2,6 +2,7 @@ package cn.dustlight.bucket.other;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import java.io.*;
@@ -22,6 +23,14 @@ public class Utils {
      */
     public static String toJSON(Object object) {
         return new Gson().toJson(object);
+    }
+
+    public static JsonObject toJsonObject(Object object) {
+        return loadFromJSON(toJSON(object),JsonObject.class);
+    }
+
+    public static <T> T fromJsonObject(JsonObject jsonObject,Class<T> tClass){
+        return loadFromJSON(toJSON(jsonObject),tClass);
     }
 
     public static <T> T loadFromJSON(File file, Class<T> tClass) throws IOException, JsonSyntaxException, JsonIOException {

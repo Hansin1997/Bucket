@@ -1,4 +1,4 @@
-package cn.dustlight.bucket.wrappers;
+package cn.dustlight.bucket.wrappers.zookeeper;
 
 import cn.dustlight.bucket.core.*;
 import cn.dustlight.bucket.core.config.BucketConfig;
@@ -14,10 +14,7 @@ import org.apache.zookeeper.data.ACL;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Zookeeper Wrapper
@@ -105,9 +102,7 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
     @Override
     public RemoteServiceConfig getServiceConfig(String name) {
-        RemoteServiceConfig config = new RemoteServiceConfig(name);
-        config.getConfigs();
-        return config;
+        return new RemoteServiceConfig(name).loadConfigs();
     }
 
     @Override
@@ -177,6 +172,8 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                             if(data == null)
                                 continue;
                             RpcBody rpcBody = Utils.loadFromJSON(new String(data), RpcBody.class);
+                            if(rpcBody.instances != null && !rpcBody.instances.contains(instanceName))
+                                continue;
                             if(rpcBody == null || rpcBody.type == null)
                                 continue;
                             switch (rpcBody.type) {
@@ -192,14 +189,15 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                                             onException(e1);
                                         if(service != null){
                                             try {
-                                                byte[] d = Utils.toJSON(service.getConfig()).getBytes();
-                                                ZooKeeperWrapper.this.zoo.setData(p,d,-1);
+                                                RpcResponse response = new RpcResponse();
+                                                response.instance = instanceName;
+                                                response.data = Utils.toJsonObject(service.getConfig());
+                                                ZooKeeperWrapper.this.zoo.setData(p,response.getBytes(),-1);
                                                 ZooKeeperWrapper.this.createNode(servicePath + "/" + n +"_"+instanceName,new byte[0],ZooDefs.Ids.OPEN_ACL_UNSAFE,CreateMode.EPHEMERAL);
-                                                ZooKeeperWrapper.this.zoo.setData(mapPath + "/" + n +"_" + instanceName,d,-1);
+                                                ZooKeeperWrapper.this.zoo.setData(mapPath + "/" + n +"_" + instanceName,service.getConfig().toString().getBytes(),-1);
                                             } catch (Exception e){
                                                 onException(e);
                                             }
-
                                         }
                                     });
 
@@ -207,7 +205,7 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
                             }
                         } catch (ServiceException | KeeperException.NoNodeException e){
-
+                            e.printStackTrace();
                         } catch (Exception e) {
                             onException(e);
                         }
@@ -239,37 +237,84 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
      */
     public class RemoteServiceConfig extends ServiceConfig {
 
-        public String s_name;
+        /**
+         * this config's owner(if configs size == 1)
+         */
+        public String instance;
+
+        /**
+         * map of instance and config(if size > 1)
+         */
         public Map<String, ServiceConfig> configs;
 
-        public RemoteServiceConfig(String s_name) {
-            this.s_name = s_name;
+        public RemoteServiceConfig(String serviceName){
+            this.name = serviceName;
         }
 
-        public Map<String, ServiceConfig> getConfigs() {
+        /**
+         * Load data from remote Bucket
+         *
+         * @param instances Bucket instance names
+         * @return
+         */
+        public RemoteServiceConfig loadConfigs(List<String> instances) {
             try {
                 List<String> ps = zoo.getChildren(mapPath, false);
-                Map<String, ServiceConfig> map = new HashMap<>();
-                for (String str : ps) {
-                    try {
-                        if (!str.startsWith(this.s_name + "_"))
-                            continue;
-                        byte[] data = zoo.getData(mapPath + "/" + str, null, null);
-                        ServiceConfig serviceConfig = Config.loadFromJSON(new String(data), ServiceConfig.class);
-                        map.put(str, serviceConfig);
-                    } catch (Exception e) {
-                        onException(e);
+                if(ps.size() > 0){
+                    Map<String, ServiceConfig> map = new HashMap<>();
+                    for (String str : ps) {
+                        try {
+                            if (!str.startsWith(this.name + "_"))
+                                continue;
+                            String ins = str.substring(this.name.length() + 1);
+                            if(instances != null && !instances.contains(ins))
+                                continue;
+                            byte[] data = zoo.getData(mapPath + "/" + str, null, null);
+                            ServiceConfig serviceConfig = Config.loadFromJSON(new String(data), ServiceConfig.class);
+                            map.put(str.substring(this.name.length() + 1), serviceConfig);
+                        } catch (Exception e) {
+                            onException(e);
+                        }
+                    }
+                    if(map.size() > 1)
+                        this.configs = map;
+                    else if(map.size() == 1){
+                        Map.Entry<String, ServiceConfig> kv = map.entrySet().iterator().next();
+                        this.instance = kv.getKey();
+                        this.root = kv.getValue().root;
+                        this.path = kv.getValue().path;
+                        this.host = kv.getValue().host;
+                        this.port = kv.getValue().port;
+                        this.type = kv.getValue().type;
+                        this.param = kv.getValue().param;
+                        this.methods = kv.getValue().methods;
+                        this.autorun = kv.getValue().autorun;
                     }
                 }
-                this.configs = map;
-                return map;
             } catch (Exception e) {
                 ServiceException se = new ServiceException(-500, "ZooKeeper Exception: " + e);
                 se.addSuppressed(e);
                 throw se;
             }
+            return this;
         }
 
+        public RemoteServiceConfig loadConfigs(){
+            return loadConfigs(null);
+        }
+
+        public boolean exists() {
+            return instance != null || configs != null ;
+        }
+
+        public Set<String> getInstances(){
+            HashSet<String> set = new HashSet<String>();
+            if(instance != null)
+                set.add(instance);
+            else if(configs != null)
+                set.addAll(configs.keySet());
+            return set;
+        }
     }
 
     /**
@@ -277,21 +322,23 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
      */
     public class RemoteService extends Service {
 
-        /**
-         * real service name
-         */
-        public String s_name;
-
-        /**
-         * remote configure
-         */
-        public RemoteServiceConfig config;
-
         private Boolean reload;
+        private List<String> instances;
 
-        public RemoteService(String s_name) {
-            this.s_name = s_name;
-            config = new RemoteServiceConfig(s_name);
+        public RemoteService(String serviceName,List<String> instances) {
+            RemoteServiceConfig config = new RemoteServiceConfig(serviceName);
+            this.config = config;
+            this.instances = instances;
+        }
+
+        public RemoteService(String serviceName,String instance) {
+            this(serviceName,new ArrayList<String>());
+            instances.add(instance);
+        }
+
+        public RemoteService(String serviceName){
+            RemoteServiceConfig config = new RemoteServiceConfig(serviceName);
+            this.config = config;
         }
 
         @Override
@@ -305,19 +352,22 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         }
 
         @Override
-        protected CommonFuture<RemoteService> doStart(ServiceConfig config) throws ServiceException {
-            if(this.config.getConfigs().size() <= 0)
+        protected CommonFuture<RemoteService> doStart(ServiceConfig c) throws ServiceException {
+            RemoteServiceConfig config = getConfig().loadConfigs(instances);
+            if(!config.exists())
                 throw new ServiceException(100, "Service doesn't exist.");
             RpcBody body = new RpcBody()
-                    .setParams("name", s_name)
+                    .setParams("name", config.name)
                     .setParams("reload",reload)
+                    .addInstances(config.getInstances())
                     .setType(RpcBody.RpcType.START_SERVICE);
             return new CommonFuture<RemoteService>() {
                 @Override
                 public void run() {
                     ZooKeeperWrapper.this.RPC(body).addListener((result, e) -> {
                         if(result.data != null){
-                            RemoteService remoteService = new RemoteService(s_name);
+                            RemoteService remoteService = new RemoteService(config.name,config.instance);
+                            remoteService.getConfig().loadConfigs();
                             done(remoteService,e);
                         }else{
                             done(new ServiceException(-500,"RemoteService doStart Error:" + result.throwable));
@@ -329,10 +379,13 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
         @Override
         protected CommonFuture<RemoteService> doStop() throws ServiceException {
-            if(this.config.getConfigs().size() <= 0)
+            RemoteServiceConfig config = getConfig().loadConfigs(instances);
+            if(!config.exists())
                 throw new ServiceException(100, "Service doesn't exist.");
+
             RpcBody body = new RpcBody()
-                    .setParams("name", s_name)
+                    .setParams("name", config.name)
+                    .addInstances(config.getInstances())
                     .setType(RpcBody.RpcType.STOP_SERVICE);
             return new CommonFuture<RemoteService>() {
                 @Override
@@ -360,8 +413,7 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
         @Override
         public RemoteServiceConfig getConfig() {
-            config.getConfigs();
-            return this.config;
+            return (RemoteServiceConfig) this.config;
         }
     }
 
@@ -378,25 +430,22 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
         @Override
         public void run() {
-            RpcResponse response = new RpcResponse();
+
             String ph = null;
             try {
                 ph = createNode(rpcPath + "/" + instanceName + "_", rpcBody.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-                zoo.getData(ph, new Watcher() {
-                    @Override
-                    public void process(WatchedEvent watchedEvent) {
-
-                        try {
-                            byte[] data = zoo.getData(watchedEvent.getPath(), false, null);
-                            zoo.delete(watchedEvent.getPath(), -1);
-                            response.data = Utils.loadFromJSON(new String(data), JsonObject.class);
-                        } catch (Exception e) {
-                            response.throwable = e;
-                        }
+                zoo.getData(ph,watchedEvent -> {
+                    try {
+                        byte[] data = zoo.getData(watchedEvent.getPath(), false, null);
+                        zoo.delete(watchedEvent.getPath(), -1);
+                        RpcResponse response = Utils.loadFromJSON(new String(data), RpcResponse.class);
                         done(response,null);
+                    } catch (Exception e) {
+                        done(null,e);
                     }
                 }, null);
             } catch (Exception e) {
+                RpcResponse response = new RpcResponse();
                 response.throwable = e;
                 if(ph != null) {
                     try {
@@ -416,6 +465,11 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
     public static class RpcResponse {
 
         /**
+         * Responder
+         */
+        public String instance;
+
+        /**
          * result
          */
         public JsonObject data;
@@ -429,12 +483,22 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         public String toString() {
             return Utils.toJSON(this);
         }
+
+        public byte[] getBytes() {
+            return toString().getBytes();
+        }
     }
 
     /**
      * RPC Body
      */
     public static class RpcBody {
+
+        /**
+         * RPC Target
+         */
+        public List<String> instances;
+
         /**
          * RPC Type
          */
@@ -449,6 +513,7 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
         public RpcBody() {
             type = RpcType.NONE;
             params = new HashMap<>();
+            instances = new ArrayList<>();
         }
 
         public <T> T getParam(String key) {
@@ -470,6 +535,18 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
 
         public RpcBody setType(RpcType type) {
             this.type = type;
+            return this;
+        }
+
+        public RpcBody addInstance(String instance) {
+            if(instance != null)
+                this.instances.add(instance);
+            return this;
+        }
+
+        public RpcBody addInstances(Collection<String> instances) {
+            if(instances != null && instances.size() > 0)
+                this.instances.addAll(instances);
             return this;
         }
 

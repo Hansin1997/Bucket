@@ -1,5 +1,7 @@
 package cn.dustlight.bucket.core.config;
 
+import cn.dustlight.bucket.other.Utils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -218,6 +220,11 @@ public class ServiceConfig extends Config {
          * System Executable File
          */
         EXECUTABLE
+    }
+
+    @Override
+    public String toString() {
+        return Utils.toJSON(this);
     }
 }
 

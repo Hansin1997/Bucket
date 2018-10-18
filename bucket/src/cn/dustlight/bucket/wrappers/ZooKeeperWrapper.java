@@ -184,7 +184,6 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                             if (rpcBody == null || rpcBody.type == null)
                                 continue;
                             String n = rpcBody.getParam("name");
-                            System.out.println(n);
                             switch (rpcBody.type) {
                                 case START_SERVICE:
 
@@ -231,17 +230,17 @@ public class ZooKeeperWrapper extends BucketWrapper implements Watcher {
                                             });
                                     break;
                                 case STOP_SERVICE:
-
                                     this.bucket.stopService(n)
                                             .addListener((result, e) -> {
                                                 try {
                                                     RpcResponse response = new RpcResponse();
                                                     response.instance = instanceName;
                                                     response.throwable = e;
-                                                    ZooKeeperWrapper.this.zoo.delete(servicePath + "/" + n + "_" + instanceName, -1);
+                                                    if(e == null)
+                                                        ZooKeeperWrapper.this.zoo.delete(servicePath + "/" + n + "_" + instanceName, -1);
                                                     ZooKeeperWrapper.this.zoo.setData(p, response.getBytes(), -1);
                                                 } catch (Exception e1) {
-                                                    onException(e);
+                                                    onException(e1);
                                                 }
                                             });
                                     break;

@@ -7,21 +7,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e442e4e9-0480-4cab-a9e6-95d51e58adca" name="Default Changelist" comment="取消Service与Bucket中start()、stop()……等的异常抛出，异常转移至Future">
+    <list default="true" id="e442e4e9-0480-4cab-a9e6-95d51e58adca" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/Bucket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/Bucket.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/BucketBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/BucketBase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/BucketWrapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/BucketWrapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/Service.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/Service.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/exception/ServiceException.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/core/exception/ServiceException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$HttpServiceHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$HttpServiceHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler$Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler$Context.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/wrappers/HttpApiWrapper$MappingApiHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/wrappers/HttpApiWrapper$MappingApiHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket.iml" beforeDir="false" afterPath="$PROJECT_DIR$/bucket.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bucket.json" beforeDir="false" afterPath="$PROJECT_DIR$/bucket.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -114,16 +107,16 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="8" />
-          <entry key="java" value="15881" />
-          <entry key="json" value="18" />
-          <entry key="txt" value="390" />
+          <entry key="java" value="15997" />
+          <entry key="json" value="22" />
+          <entry key="txt" value="413" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="15881" />
-          <entry key="JSON" value="18" />
-          <entry key="PLAIN_TEXT" value="398" />
+          <entry key="JAVA" value="15997" />
+          <entry key="JSON" value="22" />
+          <entry key="PLAIN_TEXT" value="421" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -148,8 +141,8 @@
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295360" value="1" />
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295383" value="1" />
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295478" value="1" />
-          <entry key="java" value="141" />
-          <entry key="json" value="6" />
+          <entry key="java" value="144" />
+          <entry key="json" value="7" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295238" value="1" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295283" value="1" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295326" value="2" />
@@ -168,8 +161,8 @@
           <entry key="CLASS" value="5" />
           <entry key="HTML" value="1" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="141" />
-          <entry key="JSON" value="6" />
+          <entry key="JAVA" value="144" />
+          <entry key="JSON" value="7" />
           <entry key="PLAIN_TEXT" value="31" />
         </counts>
       </usages-collector>
@@ -180,11 +173,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="85" column="27" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
+            <state relative-caret-position="127">
+              <caret line="63" column="7" lean-forward="true" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
@@ -205,11 +198,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+            <state relative-caret-position="-162">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2348#3018#0" expanded="true" />
@@ -226,13 +219,60 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
-              <caret line="73" column="27" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
+            <state relative-caret-position="133">
+              <caret line="240" column="53" selection-start-line="240" selection-start-column="53" selection-end-line="240" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2148#2149#0" expanded="true" />
+                <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
+                <element signature="method#destroy#0;class#ZooKeeperWrapper#0" />
+                <element signature="e#4121#4122#0" expanded="true" />
+                <element signature="e#4156#4157#0" expanded="true" />
+                <element signature="method#createNode#0;class#ZooKeeperWrapper#0" />
+                <element signature="method#init#0;class#ZooKeeperWrapper#0" />
+                <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+                <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+                <element signature="e#16690#16691#0" expanded="true" />
+                <element signature="e#16737#16738#0" expanded="true" />
+                <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Bucket.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="531">
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bucket.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="76" selection-start-line="76" selection-end-line="76" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1452#1639#0" expanded="true" />
+                <element signature="e#1638#1639#0" expanded="true" />
+                <element signature="e#1982#2169#0" expanded="true" />
+                <element signature="e#2168#2169#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -241,27 +281,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketBase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="119" selection-start-line="119" selection-end-line="119" />
+            <state relative-caret-position="397">
+              <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#destroy#0;class#BucketBase#0" />
                 <element signature="e#3647#3844#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketWrapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#startService#0;class#BucketWrapper#0" />
-                <element signature="e#1134#1135#0" expanded="true" />
-                <element signature="method#callService#0;class#BucketWrapper#0" />
+                <element signature="e#3843#3844#0" expanded="true" />
+                <element signature="e#3886#4344#0" expanded="true" />
+                <element signature="e#4343#4344#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -270,8 +298,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="99" selection-start-line="99" selection-end-line="99" />
+            <state relative-caret-position="187">
+              <caret line="52" selection-start-line="52" selection-end-line="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -348,19 +376,19 @@
         <option value="$PROJECT_DIR$/src/test/ScriptTest.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/other/Utils.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketWrapper.java" />
-        <option value="$PROJECT_DIR$/bucket.json" />
         <option value="$PROJECT_DIR$/src/test/Test.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/exception/ServiceException.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/JarService.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java" />
         <option value="$PROJECT_DIR$/JarSample/src/cn/dustlight/bucket/sample/JarSample.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketBase.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" />
+        <option value="$PROJECT_DIR$/bucket.json" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" />
       </list>
     </option>
   </component>
@@ -382,11 +410,6 @@
             <path>
               <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
               <item name="bucket" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="cachedir" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
@@ -546,9 +569,9 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="bucket" />
     <property name="Repository.Attach.JavaDocs" value="true" />
     <property name="Repository.Attach.Sources" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539864961643" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539866340689" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../WEB/JarTest" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26978076" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -755,30 +778,37 @@
       <option name="project" value="LOCAL" />
       <updated>1539862142111</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="修复HttpService无法重启问题">
+      <created>1539865016660</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1539865016660</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24200661" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25633958" />
       <window_info id="Structure" order="1" sideWeight="0.501548" side_tool="true" weight="0.2541345" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.501548" side_tool="true" weight="0.2541345" />
-      <window_info id="ZooKeeper" order="7" sideWeight="0.498452" weight="0.18136714" />
+      <window_info active="true" id="ZooKeeper" order="7" sideWeight="0.498452" visible="true" weight="0.2370452" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32848233" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6135612" visible="true" weight="0.13201663" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6135612" visible="true" weight="0.36174637" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49944875" weight="0.3991684" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.38643882" side_tool="true" visible="true" weight="0.13201663" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.38643882" side_tool="true" visible="true" weight="0.36174637" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49889746" weight="0.32848233" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49488926" weight="0.32781458" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -836,7 +866,8 @@
     <MESSAGE value="修复打包错误" />
     <MESSAGE value="完善HttpApiWrapper与ZookeeperWrapper的服务调用" />
     <MESSAGE value="取消Service与Bucket中start()、stop()……等的异常抛出，异常转移至Future" />
-    <option name="LAST_COMMIT_MESSAGE" value="取消Service与Bucket中start()、stop()……等的异常抛出，异常转移至Future" />
+    <MESSAGE value="修复HttpService无法重启问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复HttpService无法重启问题" />
   </component>
   <component name="ZooKeeperConfig">
     <option name="host" value="127.0.0.1" />
@@ -990,13 +1021,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://D:/Dev/Java/jdk1.8.0_181/src.zip!/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="233" column="55" selection-start-line="233" selection-start-column="55" selection-end-line="233" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/JarSample/JarSample.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1096,13 +1120,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bucket.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
@@ -1181,60 +1198,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-          <folding>
-            <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
-            <element signature="method#destroy#0;class#ZooKeeperWrapper#0" />
-            <element signature="e#4095#4096#0" expanded="true" />
-            <element signature="e#4130#4131#0" expanded="true" />
-            <element signature="method#createNode#0;class#ZooKeeperWrapper#0" />
-            <element signature="method#init#0;class#ZooKeeperWrapper#0" />
-            <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
-            <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
-            <element signature="e#11731#11732#0" expanded="true" />
-            <element signature="e#11778#11779#0" expanded="true" />
-            <element signature="e#15690#15691#0" expanded="true" />
-            <element signature="e#15738#15739#0" expanded="true" />
-            <element signature="e#17252#17253#0" expanded="true" />
-            <element signature="e#17306#17307#0" expanded="true" />
-            <element signature="e#16690#16691#0" expanded="true" />
-            <element signature="e#16737#16738#0" expanded="true" />
-            <element signature="e#16963#17210#0" expanded="true" />
-            <element signature="e#17209#17210#0" expanded="true" />
-            <element signature="e#18408#18655#0" expanded="true" />
-            <element signature="e#18654#18655#0" expanded="true" />
-            <element signature="e#18886#19376#0" expanded="true" />
-            <element signature="e#19375#19376#0" expanded="true" />
-            <element signature="e#19635#19857#0" expanded="true" />
-            <element signature="e#19856#19857#0" expanded="true" />
-            <element signature="e#20001#20222#0" expanded="true" />
-            <element signature="e#20221#20222#0" expanded="true" />
-            <element signature="e#21585#21586#0" expanded="true" />
-            <element signature="e#21629#21630#0" expanded="true" />
-            <element signature="e#21697#21698#0" expanded="true" />
-            <element signature="e#21761#21762#0" expanded="true" />
-            <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/ServiceCalling.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="75" column="17" lean-forward="true" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Bucket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1269">
-          <caret line="47" column="7" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1247,29 +1214,6 @@
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#destroy#0;class#BucketBase#0" />
-            <element signature="e#3647#3844#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="73" column="27" selection-start-line="73" selection-start-column="27" selection-end-line="73" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2148#2149#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1287,33 +1231,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="99" selection-start-line="99" selection-end-line="99" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="447">
           <caret line="112" column="12" selection-start-line="112" selection-start-column="12" selection-end-line="112" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="85" column="27" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
           </folding>
         </state>
       </provider>
@@ -1327,8 +1250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
+        <state relative-caret-position="-162">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2348#3018#0" expanded="true" />
@@ -1343,13 +1266,108 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bucket.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Bucket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="397">
+          <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#destroy#0;class#BucketBase#0" />
+            <element signature="e#3647#3844#0" expanded="true" />
+            <element signature="e#3843#3844#0" expanded="true" />
+            <element signature="e#3886#4344#0" expanded="true" />
+            <element signature="e#4343#4344#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1452#1639#0" expanded="true" />
+            <element signature="e#1638#1639#0" expanded="true" />
+            <element signature="e#1982#2169#0" expanded="true" />
+            <element signature="e#2168#2169#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="240" column="53" selection-start-line="240" selection-start-column="53" selection-end-line="240" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
+            <element signature="method#destroy#0;class#ZooKeeperWrapper#0" />
+            <element signature="e#4121#4122#0" expanded="true" />
+            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#createNode#0;class#ZooKeeperWrapper#0" />
+            <element signature="method#init#0;class#ZooKeeperWrapper#0" />
+            <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+            <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+            <element signature="e#16690#16691#0" expanded="true" />
+            <element signature="e#16737#16738#0" expanded="true" />
+            <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Dev/Java/jdk1.8.0_181/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="411" column="11" selection-start-line="411" selection-start-column="11" selection-end-line="411" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="63" column="7" lean-forward="true" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
   <component name="masterDetails">
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>JarSample:jar</last-edited>
+          <last-edited>bucket:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

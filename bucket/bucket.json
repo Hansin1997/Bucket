@@ -9,7 +9,7 @@
       "port": 8866
     },
     "zookeeper": {
-      "enable": false,
+      "enable": true,
       "host": "127.0.0.1",
       "port": 2181,
       "session": 10000

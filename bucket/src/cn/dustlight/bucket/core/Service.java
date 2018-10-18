@@ -57,7 +57,7 @@ public abstract class Service {
             return new CommonFuture<T>() {
                 @Override
                 public void run() {
-                    done((T) Service.this, null);
+                    done((T) Service.this, new ServiceException(601,"Service is running"));
                 }
             }.start();
         CommonFuture<T> result = (CommonFuture<T>) doStart(config).start().addListener((result1, e) -> this.isRunning = true);
@@ -74,7 +74,7 @@ public abstract class Service {
             return new CommonFuture<T>() {
                 @Override
                 public void run() {
-                    done((T) Service.this, null);
+                    done((T) Service.this, new ServiceException(600,"Service is not running"));
                 }
             }.start();
         CommonFuture<T> result = (CommonFuture<T>) doStop().start().addListener((result1, e) -> this.isRunning = false);

@@ -82,110 +82,75 @@ public class HttpApiWrapper extends BucketWrapper {
         }
 
         public ChannelFuture _lunch(Context context) {
-            try {
-                HttpApiWrapper.this
-                        .startService(context.params.get("s"), false)
-                        .addListener((service, e) -> {
-                            try {
-                                if (e != null)
-                                    throw e;
-                                if (service == null || service.getConfig() == null) {
-                                    throw new NullPointerException("service or config is null");
-                                }
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                                response.headers().set("Content-Type", "application/json;charset=utf-8");
-                                response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
-                                context.writeAndClose(response);
-                            } catch (Exception e2) {
-                                e2.printStackTrace();
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
-                                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                                response.content().writeBytes((e2.toString()).getBytes());
-                                context.writeAndClose(response);
+            HttpApiWrapper.this
+                    .startService(context.params.get("s"), false)
+                    .addListener((service, e) -> {
+                        try {
+                            if (e != null)
+                                throw e;
+                            if (service == null || service.getConfig() == null) {
+                                throw new NullPointerException("service or config is null");
                             }
+                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                            response.headers().set("Content-Type", "application/json;charset=utf-8");
+                            response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
+                            context.writeAndClose(response);
+                        } catch (Exception e2) {
+                            Exception(context,e2);
+                        }
 
-                        });
-                context.DoNotClose(true);
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                response.content().writeBytes(e.toString().getBytes());
-                return context.writeAndClose(response);
-            }
+                    });
+            context.DoNotClose(true);
+            return null;
         }
 
         public ChannelFuture _call(Context context) {
-            try {
-                ServiceCalling calling = new ServiceCalling(context.params.get("m"));
-                calling.getParams().putAll(context.params);
-                HttpApiWrapper.this
-                        .callService(context.params.get("s"), calling)
-                        .addListener((object, e) -> {
-                            try {
-                                if (e != null)
-                                    throw e;
-                                if (object == null) {
-                                    throw new NullPointerException("result is null");
-                                }
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                                response.headers().set("Content-Type", "application/json;charset=utf-8");
-                                response.content().writeBytes(Utils.toJSON(object).getBytes());
-                                context.writeAndClose(response);
-                            } catch (Exception e2) {
-                                e2.printStackTrace();
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
-                                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                                response.content().writeBytes((e2.toString()).getBytes());
-                                context.writeAndClose(response);
+            ServiceCalling calling = new ServiceCalling(context.params.get("m"));
+            calling.getParams().putAll(context.params);
+            HttpApiWrapper.this
+                    .callService(context.params.get("s"), calling)
+                    .addListener((object, e) -> {
+                        try {
+                            if (e != null)
+                                throw e;
+                            if (object == null) {
+                                throw new NullPointerException("result is null");
                             }
+                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                            response.headers().set("Content-Type", "application/json;charset=utf-8");
+                            response.content().writeBytes(Utils.toJSON(object).getBytes());
+                            context.writeAndClose(response);
+                        } catch (Exception e2) {
+                            Exception(context,e2);
+                        }
 
-                        });
-                context.DoNotClose(true);
-                return null;
-            } catch (Exception e) {
-                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                response.content().writeBytes(e.toString().getBytes());
-                return context.writeAndClose(response);
-            }
+                    });
+            context.DoNotClose(true);
+            return null;
         }
 
         public ChannelFuture _stop(Context context) {
-            try {
-                HttpApiWrapper.this
-                        .stopService(context.params.get("s"))
-                        .addListener((object, e) -> {
 
-                            try {
-                                if (e != null)
-                                    throw e;
-                                if (object == null) {
-                                    throw new NullPointerException("result is null");
-                                }
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                                response.headers().set("Content-Type", "application/json;charset=utf-8");
-                                response.content().writeBytes(Utils.toJSON(object).getBytes());
-                                context.writeAndClose(response);
-                            } catch (Exception e2) {
-                                e2.printStackTrace();
-                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
-                                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                                response.content().writeBytes((e2.toString()).getBytes());
-                                context.writeAndClose(response);
+            HttpApiWrapper.this
+                    .stopService(context.params.get("s"))
+                    .addListener((object, e) -> {
+                        try {
+                            if (e != null)
+                                throw e;
+                            if (object == null) {
+                                throw new NullPointerException("result is null");
                             }
+                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                            response.headers().set("Content-Type", "application/json;charset=utf-8");
+                            response.content().writeBytes(Utils.toJSON(object.getConfig()).getBytes());
+                            context.writeAndClose(response);
+                        } catch (Exception e2) {
+                            Exception(context,e2);
+                        }
 
-                        });
-                context.DoNotClose(true);
-                return null;
-            } catch (Exception e) {
-                e.printStackTrace();
-                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-                response.headers().set("Content-Type", "text/plain;charset=utf-8");
-                response.content().writeBytes(e.toString().getBytes());
-                return context.writeAndClose(response);
-            }
+                    });
+            context.DoNotClose(true);
+            return null;
         }
     }
 }

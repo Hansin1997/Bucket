@@ -20,6 +20,7 @@ import java.net.InetSocketAddress;
 
 /**
  * Http Service base on netty
+ * <p>
  * you can set your own handler to dispose your business
  */
 public class HttpService extends Service {
@@ -37,12 +38,27 @@ public class HttpService extends Service {
     private ServerBootstrap bootstrap;
     private ChannelFuture channelFuture;
 
+    private ChannelHandler channelHandler;
+    private LoggingHandler loggingHandler;
+
     /**
      * Http Handler
      */
     private HttpHandler handler;
 
     protected final static byte[] ERROR_MSG_HANDLER_NOT_SET = "Handler not set!".getBytes();
+
+    protected ServerBootstrap createBootstrap() {
+        this.boss = new NioEventLoopGroup(1);
+        this.workers = new NioEventLoopGroup();
+        ServerBootstrap bs = new ServerBootstrap();
+        bs.group(boss, workers)
+                .channel(NioServerSocketChannel.class)
+                .option(ChannelOption.SO_BACKLOG, 2048)
+                .handler(loggingHandler)
+                .childHandler(channelHandler);
+        return bs;
+    }
 
     @Override
     protected CommonFuture<HttpService> doInit(ServiceConfig config) {
@@ -60,23 +76,20 @@ public class HttpService extends Service {
                     ctx.writeAndFlush(r).addListener(ChannelFutureListener.CLOSE);
                 }
             };
-        this.boss = new NioEventLoopGroup(1);
-        this.workers = new NioEventLoopGroup();
-        bootstrap = new ServerBootstrap();
-        bootstrap.group(boss, workers)
-                .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 2048)
-                .handler(new LoggingHandler(LogLevel.INFO))
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    protected void initChannel(SocketChannel socketChannel) throws Exception {
-                        socketChannel.pipeline().addLast("http-decoder", new HttpRequestDecoder());
-                        socketChannel.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));
-                        socketChannel.pipeline().addLast("http-encoder", new HttpResponseEncoder());
-                        socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
-                        socketChannel.pipeline().addLast("http-service", new HttpServiceHandler(HttpService.this.handler));
-                    }
-                });
+
+        loggingHandler = new LoggingHandler(LogLevel.INFO);
+        channelHandler = new ChannelInitializer<SocketChannel>() {
+            @Override
+            protected void initChannel(SocketChannel socketChannel) throws Exception {
+                socketChannel.pipeline().addLast("http-decoder", new HttpRequestDecoder());
+                socketChannel.pipeline().addLast("http-aggregator", new HttpObjectAggregator(65536));
+                socketChannel.pipeline().addLast("http-encoder", new HttpResponseEncoder());
+                socketChannel.pipeline().addLast("http-chunked", new ChunkedWriteHandler());
+                socketChannel.pipeline().addLast("http-service", new HttpServiceHandler(HttpService.this.handler));
+            }
+        };
+
+        bootstrap = createBootstrap();
 
         handler.init(this);
         return new CommonFuture<HttpService>() {
@@ -88,7 +101,7 @@ public class HttpService extends Service {
     }
 
     @Override
-    public void resetConfig(ServiceConfig config) throws ServiceException {
+    public void resetConfig(ServiceConfig config) {
         if (this.isRunning())
             this.stop();
         this.initialize(config);
@@ -97,7 +110,12 @@ public class HttpService extends Service {
 
     @Override
     public <T> CommonFuture<T> call(ServiceCalling calling) {
-        return null;
+        return new CommonFuture<T>() {
+            @Override
+            public void run() {
+                done(null, null);
+            }
+        }.start();
     }
 
     @Override
@@ -113,7 +131,6 @@ public class HttpService extends Service {
                 } catch (Exception e) {
                     done(HttpService.this, e);
                 }
-
             }
         };
     }
@@ -126,12 +143,14 @@ public class HttpService extends Service {
                 ServiceException exception = null;
                 try {
                     channelFuture.channel().close();
+                    boss.shutdownGracefully();
+                    workers.shutdownGracefully();
+                    bootstrap = createBootstrap();
                 } catch (Exception e) {
+                    e.printStackTrace();
                     exception = new ServiceException(-101, "Stop Service Error.");
                     exception.addSuppressed(e);
                 }
-                boss.shutdownGracefully();
-                workers.shutdownGracefully();
                 done(HttpService.this, exception);
             }
         };

@@ -12,8 +12,10 @@ import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
 import io.netty.handler.codec.http.multipart.InterfaceHttpData;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -85,9 +87,16 @@ public class MethodMappingHandler implements HttpHandler {
     }
 
     protected ChannelFuture Exception(Context context,Exception e) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        e.printStackTrace(new PrintStream(outputStream));
+        try{
+            outputStream.close();
+        }catch (Exception e2){
+            e2.printStackTrace();
+        }
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_GATEWAY);
         response.headers().set("Content-Type","text/plain");
-        response.content().writeBytes(e.getMessage().getBytes());
+        response.content().writeBytes(outputStream.toByteArray());
         return context.ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     }
 

@@ -18,7 +18,7 @@ public class ScriptService extends Service {
     private OutputStream err;
 
     @Override
-    protected CommonFuture<ScriptService> doInit(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<ScriptService> doInit(ServiceConfig config) {
         try {
             String scriptType = config.getParam("name");
             ScriptEngine eng = new ScriptEngineManager().getEngineByName(scriptType);
@@ -44,11 +44,21 @@ public class ScriptService extends Service {
             }
 
         } catch (ServiceException e) {
-            throw e;
+            return new CommonFuture<ScriptService>() {
+                @Override
+                public void run() {
+                    done(ScriptService.this,e);
+                }
+            };
         } catch (Exception e) {
             ServiceException se = new ServiceException(-600, "ScriptService Init Error:" + e.toString());
             se.addSuppressed(e);
-            throw se;
+            return new CommonFuture<ScriptService>() {
+                @Override
+                public void run() {
+                    done(ScriptService.this,se);
+                }
+            };
         }
         return new CommonFuture<ScriptService>() {
             @Override
@@ -64,7 +74,7 @@ public class ScriptService extends Service {
     }
 
     @Override
-    protected CommonFuture<ScriptService> doStart(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<ScriptService> doStart(ServiceConfig config) {
         return new CommonFuture<ScriptService>() {
             @Override
             public void run() {
@@ -79,7 +89,7 @@ public class ScriptService extends Service {
     }
 
     @Override
-    protected CommonFuture<ScriptService> doStop() throws ServiceException {
+    protected CommonFuture<ScriptService> doStop() {
         return new CommonFuture<ScriptService>() {
             @Override
             public void run() {

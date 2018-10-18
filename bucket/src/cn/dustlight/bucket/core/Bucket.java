@@ -2,6 +2,7 @@ package cn.dustlight.bucket.core;
 
 import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.ServiceConfig;
+import cn.dustlight.bucket.core.exception.ServiceException;
 import cn.dustlight.bucket.other.CommonFuture;
 
 import java.util.Map;
@@ -63,7 +64,7 @@ public interface Bucket {
      * @param <T>
      * @return
      */
-    <T extends ServiceConfig> Map<String, T> getServiceConfigs();
+    <T extends ServiceConfig> Map<String, T> getServiceConfigs() throws ServiceException;
 
     /**
      * Get the configure of service

@@ -26,10 +26,22 @@ public abstract class Service {
      * @param config configure of service
      * @throws ServiceException
      */
-    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) throws ServiceException {
+    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) {
         this.config = config;
         if (this.isRunning)
-            return (CommonFuture<T>) stop().start();
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    stop().addListener((result, e) -> {
+                        if (e != null)
+                            done((T) result, e);
+                        else
+                            start().addListener((result1, e1) -> {
+                                done(result1, e1);
+                            });
+                    });
+                }
+            };
         else
             return (CommonFuture<T>) doInit(this.config).start();
 
@@ -40,11 +52,15 @@ public abstract class Service {
      *
      * @throws ServiceException
      */
-    public synchronized <T extends Service> CommonFuture<T> start() throws ServiceException {
-        if (isRunning)
-            return null;
-        CommonFuture<T> result = (CommonFuture<T>) doStart(config).start();
-        this.isRunning = true;
+    public synchronized <T extends Service> CommonFuture<T> start() {
+        if (this.isRunning)
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    done((T) Service.this, null);
+                }
+            }.start();
+        CommonFuture<T> result = (CommonFuture<T>) doStart(config).start().addListener((result1, e) -> this.isRunning = true);
         return result;
     }
 
@@ -53,11 +69,15 @@ public abstract class Service {
      *
      * @throws ServiceException
      */
-    public synchronized <T extends Service> CommonFuture<T> stop() throws ServiceException {
+    public synchronized <T extends Service> CommonFuture<T> stop() {
         if (!this.isRunning)
-            return null;
-        CommonFuture<T> result = (CommonFuture<T>) doStop().start();
-        this.isRunning = false;
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    done((T) Service.this, null);
+                }
+            }.start();
+        CommonFuture<T> result = (CommonFuture<T>) doStop().start().addListener((result1, e) -> this.isRunning = false);
         return result;
     }
 
@@ -76,21 +96,21 @@ public abstract class Service {
      * @param config configure of service
      * @throws ServiceException
      */
-    protected abstract <T extends Service> CommonFuture<T> doInit(ServiceConfig config) throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doInit(ServiceConfig config);
 
     /**
      * Do lunch
      *
      * @throws ServiceException
      */
-    protected abstract <T extends Service> CommonFuture<T> doStart(ServiceConfig config) throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doStart(ServiceConfig config);
 
     /**
      * Do stop
      *
      * @throws ServiceException
      */
-    protected abstract <T extends Service> CommonFuture<T> doStop() throws ServiceException;
+    protected abstract <T extends Service> CommonFuture<T> doStop();
 
     /**
      * Reset the configure and service

@@ -10,10 +10,11 @@ import cn.dustlight.bucket.wrappers.ZooKeeperWrapper;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class Test {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
 
         BucketConfig config = Config.load("bucket.json", BucketConfig.class);
 

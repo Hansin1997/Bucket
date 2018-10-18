@@ -45,7 +45,7 @@ public class BucketBase implements Bucket {
         props.put("python.security.respectJavaAccessibility", "false");
         props.put("python.import.site", "false");
         Properties preprops = System.getProperties();
-        PythonInterpreter.initialize(props, preprops, new String[] {});
+        PythonInterpreter.initialize(props, preprops, new String[]{});
     }
 
     @Override
@@ -56,28 +56,33 @@ public class BucketBase implements Bucket {
         return new CommonFuture<BucketBase>() {
             @Override
             public void run() {
-                for (Service service : services) {
-                    if (service == null)
-                        continue;
-                    stopService(service.getConfig().name);
+                try {
+                    for (Service service : services) {
+                        if (service == null)
+                            continue;
+                        stopService(service.getConfig().name);
+                    }
+                    servicesMap.clear();
+                    servicesMap.putAll(config.getServiceConfigs());
+                    done(BucketBase.this);
+                } catch (Exception e) {
+                    done(BucketBase.this, e);
                 }
-                servicesMap.clear();
-                servicesMap.putAll(config.getServiceConfigs());
-                done(BucketBase.this);
+
             }
         }.start();
     }
 
     @Override
     public CommonFuture<BucketBase> destroy() {
-        return new CommonFuture<BucketBase>(){
+        return new CommonFuture<BucketBase>() {
             @Override
             public void run() {
                 Collection<Service> services = workingServices.values();
                 for (Service service : services) {
                     try {
                         service.stop();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -90,41 +95,53 @@ public class BucketBase implements Bucket {
     }
 
     @Override
-    public synchronized  <T> CommonFuture<T> callService(String name, ServiceCalling calling) {
+    public synchronized <T> CommonFuture<T> callService(String name, ServiceCalling calling) {
         Service service = workingServices.get(name);
-        if(service == null)
-            throw new ServiceException(101, "Service is not running.");
-        return (CommonFuture<T>) service.call(calling).start();
+        if (service == null)
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    done(new ServiceException(101, "Service is not running."));
+                }
+            }.start();
+        else
+            return (CommonFuture<T>) service.call(calling).start();
     }
 
     @Override
     public synchronized <T extends Service> CommonFuture<T> stopService(String name) {
-        return new CommonFuture<T>(){
-            @Override
-            public void run() {
-                Service service = workingServices.remove(name);
-                service.stop().addListener((result, e) -> {
-                    stoppedServices.put(name, service);
-                    done((T) service,e);
-                });
-            }
-        }.start();
+        Service service = workingServices.get(name);
+        if (service == null)
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    done(new ServiceException(101, "Service is not running."));
+                }
+            }.start();
+        else
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    try {
+                        service.stop().addListener((result, e) -> {
+                            stoppedServices.put(name, service);
+                            done((T) service, e);
+                        });
+                    } catch (Exception e) {
+                        done(null, e);
+                    }
+                }
+            }.start();
     }
 
     @Override
     public synchronized <T extends Service> CommonFuture<T> startService(String name, boolean reload) {
         Service service;
-        if((service = workingServices.get(name)) != null) {
-            if(reload) {
+        if ((service = workingServices.get(name)) != null) {
+            if (reload) {
                 stopService(name);
-            }else{
-                Service finalService = service;
-                return new CommonFuture<T>(){
-                    @Override
-                    public void run() {
-                        done((T) finalService);
-                    }
-                }.start();
+            } else {
+                return service.start();
             }
         }
         service = null;
@@ -132,29 +149,37 @@ public class BucketBase implements Bucket {
             service = stoppedServices.get(name);
             if (service == null) {
                 return startService(name, true);
-            }else {
+            } else {
                 CommonFuture<T> result = service.start();
                 result.addListener((rs, e) -> {
                     stoppedServices.remove(name);
-                    workingServices.put(name,rs);
+                    workingServices.put(name, rs);
                 });
                 return result;
             }
         } else {
             ServiceConfig config = servicesMap.get(name);
             if (config == null)
-                throw new ServiceException(100, "Service doesn't exist.");
+                return new CommonFuture<T>() {
+                    @Override
+                    public void run() {
+                        done(new ServiceException(100, "Service doesn't exist."));
+                    }
+                }.start();
             service = ServiceUtils.createService(config);
             if (service != null) {
-                CommonFuture<T> result =  service.start();
+                CommonFuture<T> result = service.start();
                 workingServices.put(name, service);
                 return result;
-            }else{
-                return null;
+            } else {
+                return new CommonFuture<T>() {
+                    @Override
+                    public void run() {
+                        done(new ServiceException(100, "Service is null."));
+                    }
+                }.start();
             }
-
         }
-
     }
 
 
@@ -165,7 +190,7 @@ public class BucketBase implements Bucket {
 
     @Override
     public <T extends ServiceConfig> T getServiceConfig(String name) {
-        if(servicesMap == null)
+        if (servicesMap == null)
             return null;
         return (T) servicesMap.get(name);
     }

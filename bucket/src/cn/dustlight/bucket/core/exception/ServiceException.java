@@ -5,7 +5,7 @@ import cn.dustlight.bucket.other.Utils;
 /**
  * Service Exception
  */
-public class ServiceException extends RuntimeException {
+public class ServiceException extends Exception {
 
     /**
      * Error Code

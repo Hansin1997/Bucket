@@ -73,7 +73,6 @@ public class MethodMappingHandler implements HttpHandler {
         } catch (NoSuchMethodException e) {
             MethodNotFound(context,e);
         } catch (Exception e) {
-            e.printStackTrace();
             Exception(context,e);
         }
     }

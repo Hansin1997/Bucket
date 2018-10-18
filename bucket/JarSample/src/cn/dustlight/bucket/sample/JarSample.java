@@ -3,7 +3,6 @@ package cn.dustlight.bucket.sample;
 import cn.dustlight.bucket.core.Service;
 import cn.dustlight.bucket.core.ServiceCalling;
 import cn.dustlight.bucket.core.config.ServiceConfig;
-import cn.dustlight.bucket.core.exception.ServiceException;
 import cn.dustlight.bucket.other.CommonFuture;
 import cn.dustlight.bucket.services.http.HttpService;
 import cn.dustlight.bucket.services.http.handler.MethodMappingHandler;
@@ -16,12 +15,12 @@ import java.nio.charset.Charset;
 
 public class JarSample extends HttpService {
 
-    public JarSample(){
+    public JarSample() {
         setHandler(new TestHandler());
     }
 
     @Override
-    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) throws ServiceException {
+    public synchronized <T extends Service> CommonFuture<T> initialize(ServiceConfig config) {
         return super.initialize(config);
     }
 

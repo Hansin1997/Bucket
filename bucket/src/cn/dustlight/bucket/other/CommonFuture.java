@@ -6,7 +6,7 @@ import java.util.concurrent.*;
 
 /**
  * Common Future implement the RunnableFuture
- *
+ * <p>
  * You can add listener,they will be call when the future was done.
  *
  * @param <T>
@@ -50,7 +50,7 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
 
     public CommonFuture<T> addListener(CommonListener<T> listener) {
         if (isDone()) {
-            listener.onDone(result,e);
+            listener.onDone(result, e);
         } else {
             synchronized (list) {
                 list.add(listener);
@@ -59,12 +59,12 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
         return this;
     }
 
-    protected void done(T result,Exception e) {
+    protected void done(T result, Exception e) {
         this.result = result;
         this.e = e;
         synchronized (list) {
             for (CommonListener<T> l : list) {
-                l.onDone(this.result,this.e);
+                l.onDone(this.result, this.e);
             }
             list.clear();
             done = true;
@@ -75,7 +75,7 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
         this.e = e;
         synchronized (list) {
             for (CommonListener<T> l : list) {
-                l.onDone(this.result,this.e);
+                l.onDone(this.result, this.e);
             }
             list.clear();
             done = true;
@@ -86,7 +86,7 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
         this.result = result;
         synchronized (list) {
             for (CommonListener<T> l : list) {
-                l.onDone(this.result,this.e);
+                l.onDone(this.result, this.e);
             }
             list.clear();
             done = true;
@@ -96,12 +96,16 @@ public abstract class CommonFuture<T> implements RunnableFuture<T> {
     public CommonFuture<T> start() {
         if (!started) {
             started = true;
-            run();
+            try {
+                run();
+            } catch (Exception e) {
+                done(this.result, e);
+            }
         }
         return this;
     }
 
     public static interface CommonListener<T> {
-        void onDone(T result,Exception e);
+        void onDone(T result, Exception e);
     }
 }

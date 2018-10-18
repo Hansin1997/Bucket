@@ -45,7 +45,7 @@ public class HttpService extends Service {
     protected final static byte[] ERROR_MSG_HANDLER_NOT_SET = "Handler not set!".getBytes();
 
     @Override
-    protected CommonFuture<HttpService> doInit(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<HttpService> doInit(ServiceConfig config) {
         if (this.handler == null)
             this.handler = new HttpHandler() {
                 @Override
@@ -101,42 +101,38 @@ public class HttpService extends Service {
     }
 
     @Override
-    protected CommonFuture<HttpService> doStart(ServiceConfig config) throws ServiceException {
-        try {
-            channelFuture = bootstrap.bind(config.host, config.port).sync();
-            return new CommonFuture<HttpService>() {
-                @Override
-                public void run() {
-                    try{
-                        InetSocketAddress add = (InetSocketAddress) channelFuture.channel().localAddress();
-                        getConfig().port = add.getPort();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    done(HttpService.this);
-                }
-            };
-        } catch (Exception e) {
-            throw new ServiceException(-100, e.toString());
-        }
-    }
-
-    @Override
-    protected CommonFuture<HttpService> doStop() throws ServiceException {
-        ServiceException exception = null;
-        try {
-            channelFuture.channel().close();
-        } catch (Exception e) {
-            exception = new ServiceException(-101, e.toString());
-        }
-        boss.shutdownGracefully();
-        workers.shutdownGracefully();
-        if (exception != null)
-            throw exception;
+    protected CommonFuture<HttpService> doStart(ServiceConfig config) {
         return new CommonFuture<HttpService>() {
             @Override
             public void run() {
-                done(HttpService.this);
+                try {
+                    channelFuture = bootstrap.bind(config.host, config.port).sync();
+                    InetSocketAddress add = (InetSocketAddress) channelFuture.channel().localAddress();
+                    getConfig().port = add.getPort();
+                    done(HttpService.this, null);
+                } catch (Exception e) {
+                    done(HttpService.this, e);
+                }
+
+            }
+        };
+    }
+
+    @Override
+    protected CommonFuture<HttpService> doStop() {
+        return new CommonFuture<HttpService>() {
+            @Override
+            public void run() {
+                ServiceException exception = null;
+                try {
+                    channelFuture.channel().close();
+                } catch (Exception e) {
+                    exception = new ServiceException(-101, "Stop Service Error.");
+                    exception.addSuppressed(e);
+                }
+                boss.shutdownGracefully();
+                workers.shutdownGracefully();
+                done(HttpService.this, exception);
             }
         };
     }

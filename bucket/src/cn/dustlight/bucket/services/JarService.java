@@ -23,55 +23,95 @@ public class JarService extends Service {
     private Service service;
 
     @Override
-    protected <T extends Service> CommonFuture<T> doInit(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<JarService> doInit(ServiceConfig config) {
         if(config.type != ServiceConfig.ServiceType.JAVA_JAR)
-            throw new ServiceException(-1,"Service Type Error: " + config.name + " - " + config.type);
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    done(JarService.this,new ServiceException(-1,"Service Type Error: " + config.name + " - " + config.type));
+                }
+            };
         clazz = config.getParam("class");
         if(clazz == null)
-            throw new ServiceException(-2,"JarService: Class Name Not Found! " + config.name);
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    done(JarService.this,new ServiceException(-2,"JarService: Class Name Not Found! " + config.name));
+                }
+            };
         try {
             url  = new File(config.root + File.separator + config.path).toURI().toURL();
         } catch (MalformedURLException e) {
             ServiceException t = new ServiceException(-3, "Jar url error: " + config.root + File.pathSeparator + config.path);
             t.addSuppressed(e);
-            throw t;
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    done(JarService.this,e);
+                }
+            };
         }
         loader = new URLClassLoader(new URL[]{ url });
         try {
             Class<?> c = loader.loadClass(clazz);
             service = (Service) c.newInstance();
-            return service.initialize(config);
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    service.initialize(config).addListener((result, e) -> done(JarService.this,e));
+                }
+            };
         } catch (Exception e) {
             ServiceException se = new ServiceException(-4,"JarService start fail: " + e);
             se.addSuppressed(e);
-            throw se;
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    done(JarService.this,e);
+                }
+            };
         }
     }
 
     @Override
-    protected <T extends Service> CommonFuture<T> doStart(ServiceConfig config) throws ServiceException {
+    protected CommonFuture<JarService> doStart(ServiceConfig config) {
         if(loader == null || service == null)
-            return (CommonFuture<T>) doInit(config).addListener((result, e) -> {
+            return doInit(config).addListener((result, e) -> {
                 if(result != null)
                     result.start();
                 if(e != null)
                     e.printStackTrace();
             });
         else
-            return service.start();
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    service.start().addListener((result, e) -> done(JarService.this,e));
+                }
+            };
     }
 
     @Override
-    protected <T extends Service> CommonFuture<T> doStop() throws ServiceException {
+    protected CommonFuture<JarService> doStop() {
         if(service == null)
-            throw new ServiceException(-6,"JarService: inner service is null");
+            return new CommonFuture<JarService>() {
+                @Override
+                public void run() {
+                    done(JarService.this,new ServiceException(-6,"JarService: inner service is null"));
+                }
+            } ;
         try {
             loader.close();
             loader = null;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return service.stop();
+        return new CommonFuture<JarService>() {
+            @Override
+            public void run() {
+                service.stop().addListener((result, e) -> done(JarService.this,e));
+            }
+        };
     }
 
     @Override
@@ -84,7 +124,13 @@ public class JarService extends Service {
     @Override
     public <T> CommonFuture<T> call(ServiceCalling calling) {
         if(service == null)
-            throw new ServiceException(-6,"JarService: inner service is null");
+            return new CommonFuture<T>() {
+                @Override
+                public void run() {
+                    done(new ServiceException(-6,"JarService: inner service is null"));
+                }
+            } .start();
         return service.call(calling);
     }
+
 }

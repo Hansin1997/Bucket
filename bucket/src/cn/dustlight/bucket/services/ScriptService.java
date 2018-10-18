@@ -110,7 +110,7 @@ public class ScriptService extends Service {
             @Override
             public void run() {
                 try {
-                    Object obj = engine.invokeFunction("call");
+                    Object obj = engine.invokeFunction("call",calling);
                     done(obj, null);
                 } catch (Exception e) {
                     done(null, e);

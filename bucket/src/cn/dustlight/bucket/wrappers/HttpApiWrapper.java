@@ -2,6 +2,7 @@ package cn.dustlight.bucket.wrappers;
 
 import cn.dustlight.bucket.core.Bucket;
 import cn.dustlight.bucket.core.BucketWrapper;
+import cn.dustlight.bucket.core.ServiceCalling;
 import cn.dustlight.bucket.core.config.BucketConfig;
 import cn.dustlight.bucket.core.config.ServiceConfig;
 import cn.dustlight.bucket.other.CommonFuture;
@@ -94,6 +95,42 @@ public class HttpApiWrapper extends BucketWrapper {
                                 DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
                                 response.headers().set("Content-Type", "application/json;charset=utf-8");
                                 response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
+                                context.writeAndClose(response);
+                            } catch (Exception e2) {
+                                e2.printStackTrace();
+                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.INTERNAL_SERVER_ERROR);
+                                response.headers().set("Content-Type", "text/plain;charset=utf-8");
+                                response.content().writeBytes((e2.toString()).getBytes());
+                                context.writeAndClose(response);
+                            }
+
+                        });
+                context.DoNotClose(true);
+                return null;
+            } catch (Exception e) {
+                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                response.headers().set("Content-Type", "text/plain;charset=utf-8");
+                response.content().writeBytes(e.toString().getBytes());
+                return context.writeAndClose(response);
+            }
+        }
+
+        public ChannelFuture _call(Context context) {
+            try {
+                ServiceCalling calling = new ServiceCalling(context.params.get("m"));
+                calling.getParams().putAll(context.params);
+                HttpApiWrapper.this
+                        .callService(context.params.get("s"), calling)
+                        .addListener((object, e) -> {
+                            try {
+                                if (e != null)
+                                    throw e;
+                                if(object == null){
+                                    throw new NullPointerException("result is null");
+                                }
+                                DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+                                response.headers().set("Content-Type", "application/json;charset=utf-8");
+                                response.content().writeBytes(Utils.toJSON(object).getBytes());
                                 context.writeAndClose(response);
                             } catch (Exception e2) {
                                 e2.printStackTrace();

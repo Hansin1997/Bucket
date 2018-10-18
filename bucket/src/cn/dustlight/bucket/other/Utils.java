@@ -1,9 +1,6 @@
 package cn.dustlight.bucket.other;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -25,8 +22,8 @@ public class Utils {
         return new Gson().toJson(object);
     }
 
-    public static JsonObject toJsonObject(Object object) {
-        return loadFromJSON(toJSON(object),JsonObject.class);
+    public static JsonElement toJsonElement(Object object) {
+        return loadFromJSON(toJSON(object), JsonElement.class);
     }
 
     public static <T> T fromJsonObject(JsonObject jsonObject,Class<T> tClass){

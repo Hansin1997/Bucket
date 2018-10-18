@@ -97,7 +97,7 @@ public class MethodMappingHandler implements HttpHandler {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_GATEWAY);
         response.headers().set("Content-Type","text/plain");
         response.content().writeBytes(outputStream.toByteArray());
-        return context.ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        return context.ctx.writeAndFlush(response).addListener(future -> response.release()).addListener(ChannelFutureListener.CLOSE);
     }
 
     protected static class Context {

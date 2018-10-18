@@ -7,6 +7,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.stream.ChunkedFile;
+import io.netty.util.ReferenceCountUtil;
 
 import java.io.*;
 import java.net.URI;
@@ -59,7 +60,6 @@ public class SimpleHttpHandler implements HttpHandler {
                         echoDirectory(path, q, ctx);
                         return;
                     }
-
                 } else {
                     echoFile(path, q, ctx);
                     return;
@@ -68,6 +68,8 @@ public class SimpleHttpHandler implements HttpHandler {
             echoError(new FileNotFoundException(q.uri()), HttpResponseStatus.NOT_FOUND, ctx).addListener(ChannelFutureListener.CLOSE);
         } catch (Exception e) {
             echoError(e, HttpResponseStatus.INTERNAL_SERVER_ERROR, ctx).addListener(ChannelFutureListener.CLOSE);
+        }finally {
+            ReferenceCountUtil.release(q);
         }
     }
 
@@ -102,14 +104,8 @@ public class SimpleHttpHandler implements HttpHandler {
             response.headers().set("Content-Type", "text/plain;charset=utf-8");
             response.content().writeBytes(arr);
         }
-
         ChannelFuture r = ctx.writeAndFlush(response);
-        r.addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                response.release();
-            }
-        });
+        r.addListener(future -> response.release());
         return r;
     }
 
@@ -122,12 +118,9 @@ public class SimpleHttpHandler implements HttpHandler {
             HttpUtil.setKeepAlive(response, true);
         ctx.writeAndFlush(response);
         ctx.writeAndFlush(chunkFile, ctx.newProgressivePromise());
-        ChannelFuture lastChannelFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener(new ChannelFutureListener() {
-            @Override
-            public void operationComplete(ChannelFuture channelFuture) throws Exception {
-                file.close();
-                chunkFile.close();
-            }
+        ChannelFuture lastChannelFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT).addListener(future -> {
+            file.close();
+            chunkFile.close();
         });
         if (!HttpUtil.isKeepAlive(q))
             lastChannelFuture.addListener(ChannelFutureListener.CLOSE);

@@ -24,8 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * A method mapping handler,mapping simple:
- *  path="/index" -> methodName="_index"
+ * Method Mapping Handler
+ *
+ * mapping simple: path="/index" -> methodName="_index"
  */
 public class MethodMappingHandler implements HttpHandler {
 
@@ -43,12 +44,12 @@ public class MethodMappingHandler implements HttpHandler {
         context.request = q;
         context.ctx = ctx;
         try {
-
             URI uri = new URI(q.uri());
             context.params = Utils.QueryDecode(uri.getQuery());
             context.uri = uri;
             if(q.method().equals(HttpMethod.POST)) {
                 HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(q);
+
                 decoder.offer((FullHttpRequest)q);
                 List<InterfaceHttpData> list = decoder.getBodyHttpDatas();
                 if (context.params == null)
@@ -83,7 +84,7 @@ public class MethodMappingHandler implements HttpHandler {
         FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.NOT_FOUND);
         response.headers().set("Content-Type","text/plain");
         response.content().writeCharSequence("Path Not Found.\n" + e, Charset.forName("UTF-8"));
-        return context.ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
+        return context.ctx.writeAndFlush(response).addListener(future -> response.release()).addListener(ChannelFutureListener.CLOSE);
     }
 
     protected ChannelFuture Exception(Context context,Exception e) {

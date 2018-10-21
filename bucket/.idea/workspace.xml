@@ -8,17 +8,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e442e4e9-0480-4cab-a9e6-95d51e58adca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/WebSocketService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/WebSocketHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$HttpServiceHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService$HttpServiceHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/HttpService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cachedir/packages/packages.idx" beforeDir="false" afterPath="$PROJECT_DIR$/cachedir/packages/packages.idx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler$Context.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler$Context.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/wrappers/HttpApiWrapper$MappingApiHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/bucket/cn/dustlight/bucket/wrappers/HttpApiWrapper$MappingApiHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,6 +28,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/bucket$Test.ic" NAME="Test Coverage Results" MODIFIED="1539944449478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>test.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/bucket$SimpleHttpService.ic" NAME="SimpleHttpService Coverage Results" MODIFIED="1539395635565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>cn.dustlight.bucket.services.http.*</FILTER>
     </SUITE>
@@ -103,24 +106,26 @@
     <session id="-97949222">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.3" value="2" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="8" />
-          <entry key="java" value="17729" />
+          <entry key="java" value="17850" />
           <entry key="json" value="22" />
-          <entry key="txt" value="417" />
+          <entry key="txt" value="517" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="17729" />
+          <entry key="JAVA" value="17850" />
           <entry key="JSON" value="22" />
-          <entry key="PLAIN_TEXT" value="425" />
+          <entry key="PLAIN_TEXT" value="525" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -145,8 +150,8 @@
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295360" value="1" />
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295383" value="1" />
           <entry key="jar_DESKTOP-5RT6CNB:72078111004295478" value="1" />
-          <entry key="java" value="155" />
-          <entry key="json" value="7" />
+          <entry key="java" value="159" />
+          <entry key="json" value="8" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295238" value="1" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295283" value="1" />
           <entry key="myweb_DESKTOP-5RT6CNB:72078111004295326" value="2" />
@@ -165,8 +170,8 @@
           <entry key="CLASS" value="15" />
           <entry key="HTML" value="1" />
           <entry key="IDEA_MODULE" value="1" />
-          <entry key="JAVA" value="155" />
-          <entry key="JSON" value="7" />
+          <entry key="JAVA" value="159" />
+          <entry key="JSON" value="8" />
           <entry key="PLAIN_TEXT" value="31" />
         </counts>
       </usages-collector>
@@ -176,35 +181,24 @@
     <favorites_list name="bucket" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="118" column="24" lean-forward="true" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
+            <state relative-caret-position="235">
+              <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;field#handler#0;class#HttpService#0" />
-                <element signature="docComment;field#ERROR_MSG_HANDLER_NOT_SET#0;class#HttpService#0" />
-                <element signature="docComment;method#setHandler#0;class#HttpService#0" />
-                <element signature="class#1971:2251" />
-                <element signature="method#call#0;class#HttpService#0" />
-                <element signature="e#2768#2903#0" expanded="true" />
-                <element signature="e#2902#2903#0" expanded="true" />
-                <element signature="docComment;class#HttpServiceHandler#0;class#HttpService#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java">
+        <entry file="file://$PROJECT_DIR$/bucket.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="879">
-              <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="81">
+              <caret line="3" column="4" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -212,7 +206,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="834">
+            <state relative-caret-position="528">
               <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -224,66 +218,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
+            <state relative-caret-position="189">
               <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="docComment;method#initEventLoopGroups#0;class#NettyNioService#0" />
-                <element signature="method#initEventLoopGroups#0;class#NettyNioService#0" />
-                <element signature="method#doInit#0;class#NettyNioService#0" />
-                <element signature="method#doStart#0;class#NettyNioService#0" />
-                <element signature="method#doStop#0;class#NettyNioService#0" />
-                <element signature="method#resetConfig#0;class#NettyNioService#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/WebSocketService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1161">
+              <caret line="58" column="104" selection-start-line="58" selection-start-column="104" selection-end-line="58" selection-end-column="104" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/WebSocketService.java">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="58" column="104" selection-start-line="58" selection-start-column="104" selection-end-line="58" selection-end-column="104" />
+            <state relative-caret-position="289">
+              <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1246#2259#0" expanded="true" />
-                <element signature="e#2258#2259#0" expanded="true" />
-                <element signature="e#590#725#0" expanded="true" />
-                <element signature="e#724#725#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.30.Final/netty-all-4.1.30.Final.jar!/io/netty/channel/SimpleChannelInboundHandler.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="729">
-              <caret line="48" column="29" lean-forward="true" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-              <folding>
-                <element signature="e#769#770#0" expanded="true" />
-                <element signature="e#815#816#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.30.Final/netty-all-4.1.30.Final.jar!/io/netty/util/ReferenceCountUtil.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-162">
-              <caret line="11" column="37" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/HttpHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
               </folding>
             </state>
           </provider>
@@ -301,8 +264,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="515">
-              <caret line="341" column="8" selection-start-line="341" selection-start-column="8" selection-end-line="341" selection-end-column="8" />
+            <state relative-caret-position="-1301">
+              <caret line="341" column="35" selection-start-line="341" selection-start-column="35" selection-end-line="341" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
@@ -313,11 +276,23 @@
                 <element signature="method#init#0;class#ZooKeeperWrapper#0" />
                 <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
                 <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
-                <element signature="e#14966#14967#0" expanded="true" />
-                <element signature="e#15014#15015#0" expanded="true" />
-                <element signature="e#16690#16691#0" expanded="true" />
-                <element signature="e#16737#16738#0" expanded="true" />
+                <element signature="e#14985#14986#0" expanded="true" />
+                <element signature="e#15033#15034#0" expanded="true" />
                 <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1946#2123#0" expanded="true" />
+                <element signature="e#2122#2123#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -391,21 +366,21 @@
         <option value="$PROJECT_DIR$/src/test/Test.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/exception/ServiceException.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/JarService.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java" />
         <option value="$PROJECT_DIR$/JarSample/src/cn/dustlight/bucket/sample/JarSample.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/BucketBase.java" />
         <option value="$PROJECT_DIR$/bucket.json" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/core/Service.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/WebSocketService.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyNioService.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyService.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java" />
-        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" />
         <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/WebSocketService.java" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java" />
+        <option value="$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java" />
       </list>
     </option>
   </component>
@@ -421,6 +396,32 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
+              <item name="bucket" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
+              <item name="bucket" type="616d4139:PackageViewModuleNode" />
+              <item name="cn.dustlight.bucket" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
+              <item name="bucket" type="616d4139:PackageViewModuleNode" />
+              <item name="cn.dustlight.bucket" type="1f31426a:PackageElementNode" />
+              <item name="core" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
+              <item name="JarSample" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -455,50 +456,6 @@
               <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
               <item name="bucket" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="http" type="462c0819:PsiDirectoryNode" />
-              <item name="handler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="bucket" type="462c0819:PsiDirectoryNode" />
-              <item name="wrappers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bucket" type="b2602c69:ProjectViewProjectNode" />
@@ -556,32 +513,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
-              <item name="bucket" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
-              <item name="bucket" type="616d4139:PackageViewModuleNode" />
-              <item name="cn.dustlight.bucket" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
-              <item name="bucket" type="616d4139:PackageViewModuleNode" />
-              <item name="cn.dustlight.bucket" type="1f31426a:PackageElementNode" />
-              <item name="core" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="bucket" type="58d84e3e:PackageViewProjectNode" />
-              <item name="JarSample" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -592,12 +523,12 @@
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="bucket" />
     <property name="Repository.Attach.JavaDocs" value="true" />
     <property name="Repository.Attach.Sources" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539889918769" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1539890181563" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../WEB/JarTest" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.26978076" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="org.mvnsearch.intellij.plugin.zookeeper.ui.ZkProjectConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -616,7 +547,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.WebSocketService">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="HttpApiWrapper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="cn.dustlight.bucket.wrappers.HttpApiWrapper" />
       <module name="bucket" />
@@ -691,8 +622,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.WebSocketService" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.WebSocketService" />
         <item itemvalue="Application.ScriptTest" />
         <item itemvalue="Application.HttpService" />
         <item itemvalue="Application.HttpApiWrapper" />
@@ -815,14 +746,21 @@
       <option name="project" value="LOCAL" />
       <updated>1539869818738</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="新增NettyService、WebSocketService，HttpService与WebSocket继承NettyService。&#10;待解决问题：资源释放、WebSocket路径问题">
+      <created>1539890087403</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1539890087403</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18963616" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23318633" />
       <window_info id="Structure" order="1" sideWeight="0.501548" side_tool="true" weight="0.2541345" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -832,7 +770,7 @@
       <window_info id="ZooKeeper" order="7" sideWeight="0.498452" weight="0.2370452" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32848233" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6135612" visible="true" weight="0.33991683" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6135612" visible="true" weight="0.23180874" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49944875" weight="0.3991684" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -841,8 +779,9 @@
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.38643882" side_tool="true" weight="0.36174637" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49889746" weight="0.32848233" />
       <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49488926" weight="0.32781458" />
+      <window_info anchor="right" id="Coverage" sideWeight="0.5006766" side_tool="true" visible="true" weight="0.12789416" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" sideWeight="0.4993234" visible="true" weight="0.12789416" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24957411" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -897,7 +836,8 @@
     <MESSAGE value="完善HttpApiWrapper与ZookeeperWrapper的服务调用" />
     <MESSAGE value="取消Service与Bucket中start()、stop()……等的异常抛出，异常转移至Future" />
     <MESSAGE value="修复HttpService无法重启问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复HttpService无法重启问题" />
+    <MESSAGE value="新增NettyService、WebSocketService，HttpService与WebSocket继承NettyService。&#10;待解决问题：资源释放、WebSocket路径问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="新增NettyService、WebSocketService，HttpService与WebSocket继承NettyService。&#10;待解决问题：资源释放、WebSocket路径问题" />
   </component>
   <component name="ZooKeeperConfig">
     <option name="host" value="127.0.0.1" />
@@ -907,29 +847,11 @@
     <option name="enabled" value="true" />
     <option name="tooltip" value="true" />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/ZooKeeperUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/HttpChunkFileEchoer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#883#884#0" expanded="true" />
-            <element signature="e#918#919#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApi.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
@@ -948,9 +870,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -981,13 +900,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/zookeeper/RemoteServiceType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/zookeeper/RemoteServiceType.java" />
     <entry file="jar://D:/Dev/Java/jdk1.8.0_181/src.zip!/javax/script/Invocable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -999,9 +912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1009,9 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="21" selection-start-line="21" selection-end-line="27" selection-end-column="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1037,41 +944,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2808">
-          <caret line="113" column="9" lean-forward="true" selection-start-line="113" selection-start-column="9" selection-end-line="113" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1946#2103#0" expanded="true" />
-            <element signature="e#2102#2103#0" expanded="true" />
-            <element signature="e#2315#2472#0" expanded="true" />
-            <element signature="e#2471#2472#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/JarService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="932">
           <caret line="131" column="22" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#773#1009#0" expanded="true" />
-            <element signature="e#1008#1009#0" expanded="true" />
-            <element signature="e#1099#1328#0" expanded="true" />
-            <element signature="e#1327#1328#0" expanded="true" />
-            <element signature="e#1655#1810#0" expanded="true" />
-            <element signature="e#1809#1810#0" expanded="true" />
-            <element signature="e#1853#2076#0" expanded="true" />
-            <element signature="e#2075#2076#0" expanded="true" />
-            <element signature="e#2459#2627#0" expanded="true" />
-            <element signature="e#2626#2627#0" expanded="true" />
-            <element signature="e#2031#2203#0" />
-            <element signature="e#3065#3206#0" expanded="true" />
-            <element signature="e#3205#3206#0" expanded="true" />
-            <element signature="method#resetConfig#0;class#JarService#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1099,9 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="75" column="17" lean-forward="true" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1109,9 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1135,13 +1005,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bucket.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/CommonFuture.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1156,9 +1019,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="531">
           <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1166,14 +1026,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
           <caret line="125" column="34" selection-start-line="125" selection-start-column="34" selection-end-line="125" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#destroy#0;class#BucketBase#0" />
-            <element signature="e#3647#3844#0" expanded="true" />
-            <element signature="e#3843#3844#0" expanded="true" />
-            <element signature="e#3886#4344#0" expanded="true" />
-            <element signature="e#4343#4344#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1181,13 +1033,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="76" selection-start-line="76" selection-end-line="76" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1452#1639#0" expanded="true" />
-            <element signature="e#1638#1639#0" expanded="true" />
-            <element signature="e#1982#2169#0" expanded="true" />
-            <element signature="e#2168#2169#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1198,46 +1043,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="63" column="7" lean-forward="true" selection-start-line="63" selection-start-column="7" selection-end-line="63" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="341" column="8" selection-start-line="341" selection-start-column="8" selection-end-line="341" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
-            <element signature="method#destroy#0;class#ZooKeeperWrapper#0" />
-            <element signature="e#4121#4122#0" expanded="true" />
-            <element signature="e#4156#4157#0" expanded="true" />
-            <element signature="method#createNode#0;class#ZooKeeperWrapper#0" />
-            <element signature="method#init#0;class#ZooKeeperWrapper#0" />
-            <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
-            <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
-            <element signature="e#14966#14967#0" expanded="true" />
-            <element signature="e#15014#15015#0" expanded="true" />
-            <element signature="e#16690#16691#0" expanded="true" />
-            <element signature="e#16737#16738#0" expanded="true" />
-            <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
           </folding>
         </state>
       </provider>
@@ -1260,14 +1071,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="320">
           <caret line="50" column="10" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
-          <folding>
-            <element signature="e#803#804#0" expanded="true" />
-            <element signature="e#826#827#0" expanded="true" />
-            <element signature="e#872#873#0" expanded="true" />
-            <element signature="e#918#919#0" expanded="true" />
-            <element signature="e#1132#1133#0" expanded="true" />
-            <element signature="e#1201#1202#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1282,10 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="74">
           <caret line="23" column="59" selection-start-line="23" selection-start-column="59" selection-end-line="23" selection-end-column="59" />
-          <folding>
-            <element signature="e#1380#1381#0" expanded="true" />
-            <element signature="e#1436#1437#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1293,13 +1092,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
           <caret line="38" column="16" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/WebSocketHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1341,37 +1133,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;method#initEventLoopGroups#0;class#NettyNioService#0" />
-            <element signature="method#initEventLoopGroups#0;class#NettyNioService#0" />
-            <element signature="method#doInit#0;class#NettyNioService#0" />
-            <element signature="method#doStart#0;class#NettyNioService#0" />
-            <element signature="method#doStop#0;class#NettyNioService#0" />
-            <element signature="method#resetConfig#0;class#NettyNioService#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.30.Final/netty-all-4.1.30.Final.jar!/io/netty/channel/SimpleChannelInboundHandler.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="729">
           <caret line="48" column="29" lean-forward="true" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-          <folding>
-            <element signature="e#769#770#0" expanded="true" />
-            <element signature="e#815#816#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/other/HttpChunkFileEchoer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="834">
-          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+        <state relative-caret-position="585">
+          <caret line="38" column="38" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1380,42 +1152,124 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/HttpService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="118" column="24" lean-forward="true" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
+        <state relative-caret-position="2673">
+          <caret line="118" column="24" selection-start-line="118" selection-start-column="24" selection-end-line="118" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;field#handler#0;class#HttpService#0" />
             <element signature="docComment;field#ERROR_MSG_HANDLER_NOT_SET#0;class#HttpService#0" />
             <element signature="docComment;method#setHandler#0;class#HttpService#0" />
-            <element signature="class#1971:2251" />
             <element signature="method#call#0;class#HttpService#0" />
-            <element signature="e#2768#2903#0" expanded="true" />
-            <element signature="e#2902#2903#0" expanded="true" />
             <element signature="docComment;class#HttpServiceHandler#0;class#HttpService#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="879">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/WebSocketService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
+        <state relative-caret-position="1161">
           <caret line="58" column="104" selection-start-line="58" selection-start-column="104" selection-end-line="58" selection-end-column="104" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1246#2259#0" expanded="true" />
-            <element signature="e#2258#2259#0" expanded="true" />
-            <element signature="e#590#725#0" expanded="true" />
-            <element signature="e#724#725#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/WebSocketHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="33" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bucket.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="4" lean-forward="true" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/NettyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="16" column="63" selection-start-line="16" selection-start-column="63" selection-end-line="16" selection-end-column="63" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/SimpleHttpHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="61" column="21" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/http/handler/MethodMappingHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="42" column="40" lean-forward="true" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/ZooKeeperWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1301">
+          <caret line="341" column="35" selection-start-line="341" selection-start-column="35" selection-end-line="341" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize#0;class#ZooKeeperWrapper#0" />
+            <element signature="method#destroy#0;class#ZooKeeperWrapper#0" />
+            <element signature="e#4121#4122#0" expanded="true" />
+            <element signature="e#4156#4157#0" expanded="true" />
+            <element signature="method#createNode#0;class#ZooKeeperWrapper#0" />
+            <element signature="method#init#0;class#ZooKeeperWrapper#0" />
+            <element signature="docComment;field#instance#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+            <element signature="docComment;field#configs#0;class#RemoteServiceConfig#0;class#ZooKeeperWrapper#0" />
+            <element signature="e#14985#14986#0" expanded="true" />
+            <element signature="e#15033#15034#0" expanded="true" />
+            <element signature="class#RpcFuture#0;class#ZooKeeperWrapper#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/Dev/Java/jdk1.8.0_181/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="3798" column="30" selection-start-line="3798" selection-start-column="30" selection-end-line="3798" selection-end-column="30" />
+          <folding>
+            <element signature="e#177013#177014#0" expanded="true" />
+            <element signature="e#177054#177055#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/services/ScriptService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1946#2123#0" expanded="true" />
+            <element signature="e#2122#2123#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cn/dustlight/bucket/wrappers/HttpApiWrapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#HttpApiWrapper#0;class#HttpApiWrapper#0" />
           </folding>
         </state>
       </provider>

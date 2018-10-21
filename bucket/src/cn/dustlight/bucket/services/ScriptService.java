@@ -10,6 +10,7 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ScriptService extends Service {
 
@@ -33,10 +34,8 @@ public class ScriptService extends Service {
                     eng.put("out",out);
                     eng.put("err",err);
                 }
-
                 Reader script = new BufferedReader(new FileReader(config.root + File.separator + config.path));
                 eng.eval(script, eng.getContext());
-
                 script.close();
                 this.engine = (Invocable) eng;
             } else {
@@ -44,6 +43,7 @@ public class ScriptService extends Service {
             }
 
         } catch (ServiceException e) {
+            e.printStackTrace();
             return new CommonFuture<ScriptService>() {
                 @Override
                 public void run() {
@@ -51,6 +51,7 @@ public class ScriptService extends Service {
                 }
             };
         } catch (Exception e) {
+            e.printStackTrace();
             ServiceException se = new ServiceException(-600, "ScriptService Init Error:" + e.toString());
             se.addSuppressed(e);
             return new CommonFuture<ScriptService>() {

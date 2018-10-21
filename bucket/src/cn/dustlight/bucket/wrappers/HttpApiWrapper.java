@@ -78,25 +78,27 @@ public class HttpApiWrapper extends BucketWrapper {
             DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
             response.headers().set("Content-Type", "text/html;charset=utf-8");
             response.content().writeBytes(("" + context.params).getBytes());
-            return context.writeAndClose(response);
+            return context.writeAndClose(response).addListener(future -> response.release());
         }
 
         public ChannelFuture _lunch(Context context) {
             HttpApiWrapper.this
                     .startService(context.params.get("s"), false)
                     .addListener((service, e) -> {
+                        DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
                         try {
                             if (e != null)
                                 throw e;
                             if (service == null || service.getConfig() == null) {
                                 throw new NullPointerException("service or config is null");
                             }
-                            DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
+
                             response.headers().set("Content-Type", "application/json;charset=utf-8");
                             response.content().writeBytes(Utils.toJSON(service.getConfig()).getBytes());
-                            context.writeAndClose(response);
+                            context.writeAndClose(response).addListener(future -> response.release());
                         } catch (Exception e2) {
                             Exception(context,e2);
+                            response.release();
                         }
 
                     });
